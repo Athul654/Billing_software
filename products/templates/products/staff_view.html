@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Staff Management - POS Billing System Admin Portal</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration Injection -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface-variant": "#45464d",
+            "primary-fixed": "#dae2fd",
+            "on-secondary-fixed-variant": "#004395",
+            "background": "#f8f9ff",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#7c839b",
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-container": "#009668",
+            "tertiary-fixed": "#6ffbbe",
+            "on-secondary": "#ffffff",
+            "tertiary-container": "#002113",
+            "primary": "#000000",
+            "error": "#ba1a1a",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-error": "#ffffff",
+            "surface-tint": "#565e74",
+            "error-container": "#ffdad6",
+            "surface": "#f8f9ff",
+            "on-primary-fixed": "#131b2e",
+            "inverse-primary": "#bec6e0",
+            "on-secondary-fixed": "#001a42",
+            "on-error-container": "#93000a",
+            "secondary-fixed-dim": "#adc6ff",
+            "primary-fixed-dim": "#bec6e0",
+            "on-primary-fixed-variant": "#3f465c",
+            "surface-container-high": "#dce9ff",
+            "secondary-fixed": "#d8e2ff",
+            "surface-container": "#e5eeff",
+            "on-primary": "#ffffff",
+            "primary-container": "#131b2e",
+            "on-tertiary-fixed": "#002113",
+            "surface-variant": "#d3e4fe",
+            "outline-variant": "#c6c6cd",
+            "on-secondary-container": "#fefcff",
+            "tertiary": "#000000",
+            "secondary": "#0058be",
+            "inverse-on-surface": "#eaf1ff",
+            "surface-dim": "#cbdbf5",
+            "on-surface": "#0b1c30",
+            "on-background": "#0b1c30",
+            "on-tertiary-fixed-variant": "#005236",
+            "secondary-container": "#2170e4",
+            "surface-container-low": "#eff4ff",
+            "outline": "#76777d",
+            "surface-container-highest": "#d3e4fe",
+            "on-tertiary": "#ffffff",
+            "inverse-surface": "#213145"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "space-md": "0.75rem",
+            "gutter-mobile": "0.75rem",
+            "margin": "1.5rem",
+            "space-xl": "1.5rem",
+            "gutter": "1rem",
+            "space-lg": "1rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "headline-xl-mobile": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-xl": ["Inter"],
+            "body-md": ["Inter"],
+            "code-md": ["Inter"],
+            "display-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "title-md": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "headline-xl-mobile": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+            "headline-xl": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "code-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased flex h-screen overflow-hidden font-body-md text-body-md">
+<!-- Persistent Left Sidebar from Shared Components JSON -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col justify-between bg-surface border-r border-outline-variant z-50">
+<div class="flex flex-col h-full overflow-hidden">
+<!-- Sidebar Brand Header -->
+<div class="p-space-lg border-b border-outline-variant">
+<div class="flex items-center gap-space-sm mb-space-xs">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-bold text-title-md">
+<span class="material-symbols-outlined text-surface-bright" data-icon="point_of_sale">point_of_sale</span>
+</div>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-on-surface leading-tight">POS Billing System</h1>
+</div>
+</div>
+<p class="text-label-sm font-label-sm text-outline">Enterprise Retail &amp; Textile Engine</p>
+</div>
+<!-- Action Button CTA -->
+<div class="px-space-md pt-space-md">
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary py-space-sm px-space-md rounded-lg font-label-md text-label-md flex items-center justify-center gap-space-xs shadow-sm transition-colors duration-150">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+<span>+ Create New Bill</span>
+</a>
+</div>
+<!-- Sidebar Navigation Menu (11 items, Staff is active) -->
+<nav class="flex-1 overflow-y-auto px-space-xs py-space-md space-y-0.5">
+<!-- Dashboard -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg" href="/staff-dashboard/">
+<span class="material-symbols-outlined text-[18px]" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Products -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg" href="/products/">
+<span class="material-symbols-outlined text-[18px]" data-icon="inventory_2">inventory_2</span>
+<span>Products</span>
+</a>
+<!-- Categories -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="category">category</span>
+<span>Categories</span>
+</a>
+<!-- Staff (ACTIVE) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary bg-surface-container-low border-l-2 border-secondary font-label-md text-label-md rounded-r-lg" href="/staff/">
+<span class="material-symbols-outlined text-[18px]" data-icon="badge">badge</span>
+<span>Staff</span>
+</a>
+<!-- Suppliers -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="conveyor_belt">conveyor_belt</span>
+<span>Suppliers</span>
+</a>
+<!-- Billing / Transactions -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="point_of_sale">point_of_sale</span>
+<span>Billing / Transactions</span>
+</a>
+<!-- Returns -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="assignment_return">assignment_return</span>
+<span>Returns</span>
+</a>
+<!-- Inventory -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="warehouse">warehouse</span>
+<span>Inventory</span>
+</a>
+<!-- Ledger -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="receipt_long">receipt_long</span>
+<span>Ledger</span>
+</a>
+<!-- Reports -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="analytics">analytics</span>
+<span>Reports</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<!-- Sidebar Footer -->
+<div class="p-space-sm border-t border-outline-variant bg-surface-container-low/50">
+<div class="flex items-center justify-between px-space-sm py-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary flex items-center justify-center font-bold text-label-sm">
+              AU
+            </div>
+<div>
+<p class="font-label-md text-label-md text-on-surface leading-tight">Admin User</p>
+<p class="font-label-sm text-label-sm text-outline">Super Admin</p>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors p-1" title="Sign Out">
+<span class="material-symbols-outlined text-[20px]" data-icon="logout">logout</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Viewport Layout -->
+<div class="pl-64 flex flex-col flex-1 h-screen overflow-hidden bg-background">
+<!-- Top Navigation Bar from Shared Components JSON -->
+<header class="h-14 border-b border-outline-variant bg-surface-container-lowest sticky top-0 z-40 px-space-xl flex items-center justify-between">
+<!-- Breadcrumb & Store Selector -->
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-xs text-label-md font-label-md text-outline">
+<a class="hover:text-on-surface transition-colors" href="/staff-dashboard/">Dashboard</a>
+<span>/</span>
+<span class="text-secondary font-label-md">Staff</span>
+</div>
+<div class="h-4 w-[1px] bg-outline-variant"></div>
+<div class="flex items-center gap-space-xs px-space-sm py-1 bg-surface-container-low rounded border border-outline-variant text-label-sm font-label-sm text-on-surface cursor-pointer hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="storefront">storefront</span>
+<span class="font-medium">Main Store - Central Warehouse</span>
+<span class="material-symbols-outlined text-[14px] text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Center Search & Right Actions -->
+<div class="flex items-center gap-space-md">
+<!-- Search bar -->
+<div class="relative w-80">
+<span class="absolute inset-y-0 left-0 pl-space-sm flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-[18px]" data-icon="search">search</span>
+</span>
+<input class="w-full pl-8 pr- space-sm py-1.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all placeholder:text-outline" placeholder="Search invoice, staff, SKU..." type="text"/>
+</div>
+<!-- Quick actions -->
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low rounded-lg relative transition-colors" title="Notifications">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full ring-2 ring-surface-container-lowest"></span>
+</button>
+<div class="h-5 w-[1px] bg-outline-variant"></div>
+<button class="px-space-md py-1.5 bg-surface-container-low border border-outline-variant text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="file_download">file_download</span>
+<span>Export CSV</span>
+</button>
+<a class="px-space-md py-1.5 bg-secondary text-on-secondary rounded-lg font-label-md text-label-md hover:bg-secondary-container transition-all shadow-sm flex items-center gap-1" href="/staff/add/">
+<span class="material-symbols-outlined text-[16px]" data-icon="person_add">person_add</span>
+<span>+ Add Staff</span>
+</a>
+</div>
+</header>
+<!-- Scrollable Main Content Work Area -->
+<main class="flex-1 overflow-y-auto p-space-xl space-y-space-lg">
+<!-- Page Header Banner -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-space-md pb-space-xs">
+<div>
+<h2 class="text-headline-xl font-headline-xl text-on-surface tracking-tight">Staff Management</h2>
+<p class="text-body-md font-body-md text-outline mt-0.5">Manage staff accounts, assign billing terminals, and configure system operational privileges.</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-1.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="history">history</span>
+<span>Audit Access Logs</span>
+</button>
+<button class="px-space-md py-1.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="tune">tune</span>
+<span>Shift Permissions</span>
+</button>
+</div>
+</div>
+<!-- KPI Summary Cards (4 Columns) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- KPI 1: Total Staff -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-outline">Total Staff</span>
+<div class="p-1.5 bg-surface-container-low rounded-lg text-on-surface">
+<span class="material-symbols-outlined text-[18px]" data-icon="badge">badge</span>
+</div>
+</div>
+<div class="mt-space-md">
+<div class="text-display-lg font-display-lg text-on-surface tracking-tight">{{ total_staff }}</div>
+<p class="text-label-sm font-label-sm text-outline mt-1">Registered POS operators &amp; cashiers</p>
+</div>
+</div>
+<!-- KPI 2: Active Staff -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-outline">Active Staff</span>
+<div class="p-1.5 bg-surface-container-low rounded-lg text-on-tertiary-container">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+<div class="mt-space-md">
+<div class="flex items-baseline gap-space-sm">
+<div class="text-display-lg font-display-lg text-on-surface tracking-tight">{{ active_staff }}</div>
+<span class="px-1.5 py-0.5 rounded text-label-sm font-label-sm bg-tertiary-container/10 text-on-tertiary-container font-semibold">83.3% access</span>
+</div>
+<p class="text-label-sm font-label-sm text-outline mt-1">Authorized for terminal login</p>
+</div>
+</div>
+<!-- KPI 3: Inactive Staff -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-outline">Inactive Staff</span>
+<div class="p-1.5 bg-surface-container-low rounded-lg text-error">
+<span class="material-symbols-outlined text-[18px]" data-icon="person_off">person_off</span>
+</div>
+</div>
+<div class="mt-space-md">
+<div class="text-display-lg font-display-lg text-on-surface tracking-tight">{{ inactive_staff }}</div>
+<p class="text-label-sm font-label-sm text-outline mt-1">Suspended &amp; seasonal holds</p>
+</div>
+</div>
+<!-- KPI 4: Currently Logged In -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-outline">Currently Logged In</span>
+<div class="p-1.5 bg-secondary-fixed text-secondary rounded-lg">
+<span class="material-symbols-outlined text-[18px]" data-icon="online_prediction">online_prediction</span>
+</div>
+</div>
+<div class="mt-space-md">
+<div class="flex items-center gap-space-xs">
+<div class="text-display-lg font-display-lg text-on-surface tracking-tight">3</div>
+<span class="relative flex h-2.5 w-2.5 ml-1">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-on-tertiary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-on-tertiary-container"></span>
+</span>
+</div>
+<p class="text-label-sm font-label-sm text-outline mt-1">Active on billing terminals now</p>
+</div>
+</div>
+</div>
+<!-- Layout Split: Table Container on Left (8-9 cols), Slide-over / Preview Inspector on Right (3-4 cols) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Staff Data Table Container (8 Cols) -->
+<div class="lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-lg shadow-sm overflow-hidden flex flex-col">
+<!-- Table Controls Toolbar -->
+<div class="p-space-md border-b border-outline-variant flex flex-wrap items-center justify-between gap-space-md bg-surface-container-lowest">
+<!-- Search & Filters -->
+<div class="flex items-center gap-space-sm flex-1 min-w-[280px]">
+<div class="relative flex-1">
+<span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-[18px]" data-icon="search">search</span>
+</span>
+<input class="w-full pl-8 pr-8 py-1.5 bg-surface-container-lowest border border-outline-variant rounded text-body-md font-body-md text-on-surface focus:outline-none focus:ring-1 focus:ring-secondary focus:border-secondary" placeholder="Search by name, username or email..." type="text"/>
+<button class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-outline hover:text-on-surface" title="Clear">
+<span class="material-symbols-outlined text-[16px]" data-icon="close">close</span>
+</button>
+</div>
+<!-- Role Filter -->
+<select class="py-1.5 pl-2.5 pr-8 bg-surface-container-lowest border border-outline-variant rounded text-label-md font-label-md text-on-surface focus:outline-none focus:border-secondary">
+<option>All Roles</option>
+<option>Cashier / POS Staff</option>
+<option>Inventory Associate</option>
+<option>Shift Supervisor</option>
+</select>
+<!-- Status Filter -->
+<select class="py-1.5 pl-2.5 pr-8 bg-surface-container-lowest border border-outline-variant rounded text-label-md font-label-md text-on-surface focus:outline-none focus:border-secondary">
+<option>All Status</option>
+<option>Active</option>
+<option>Inactive</option>
+</select>
+<button class="p-1.5 border border-outline-variant rounded hover:bg-surface-container-low text-on-surface-variant" title="Advanced Filters">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+<!-- Total count label -->
+<div class="text-label-sm font-label-sm text-outline whitespace-nowrap">
+              Showing <span class="font-semibold text-on-surface">{{ staff_members|length }}</span> of <span class="font-semibold text-on-surface">{{ total_staff }}</span> staff members
+            </div>
+</div>
+<!-- Tabular Grid View -->
+<div class="overflow-x-auto">
+<table class="w-full border-collapse text-left">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant h-9">
+<th class="w-10 px-space-sm text-center">
+<input class="rounded border-outline-variant text-secondary focus:ring-0 w-3.5 h-3.5" type="checkbox"/>
+</th>
+<th class="px-space-md text-label-sm font-label-sm uppercase tracking-wider text-outline font-semibold">Staff Member</th>
+<th class="px-space-sm text-label-sm font-label-sm uppercase tracking-wider text-outline font-semibold">Username</th>
+<th class="px-space-sm text-label-sm font-label-sm uppercase tracking-wider text-outline font-semibold">Role</th>
+<th class="px-space-sm text-label-sm font-label-sm uppercase tracking-wider text-outline font-semibold">Status</th>
+<th class="px-space-sm text-label-sm font-label-sm uppercase tracking-wider text-outline font-semibold">Last Login</th>
+<th class="px-space-md text-label-sm font-label-sm uppercase tracking-wider text-outline font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/60 font-body-md text-body-md">
+{% for staff in staff_members %}
+<tr class="hover:bg-surface-container-low transition-colors h-12 {% if not staff.is_active %}bg-surface-container-low/20{% endif %}">
+<td class="px-space-sm text-center">
+<input class="rounded border-outline-variant text-secondary focus:ring-0 w-3.5 h-3.5" type="checkbox"/>
+</td>
+<td class="px-space-md py-2 {% if not staff.is_active %}opacity-75{% endif %}">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-label-sm">
+{{ staff.first_name|slice:":1" }}{{ staff.last_name|slice:":1"|upper }}
+</div>
+<div>
+<div class="font-semibold text-on-surface">
+{{ staff.get_full_name }}
+</div>
+<div class="text-label-sm font-label-sm text-outline">{{ staff.email|default:"-" }}</div>
+</div>
+</div>
+</td>
+<td class="px-space-sm py-2 {% if not staff.is_active %}opacity-75{% endif %}">
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-md text-code-md text-on-surface border border-outline-variant/40">{{ staff.username }}</span>
+</td>
+<td class="px-space-sm py-2 {% if not staff.is_active %}opacity-75{% endif %}">
+<span class="text-label-md font-label-md text-on-surface bg-surface-container-low px-2 py-0.5 rounded border border-outline-variant/60">Staff ({{ staff.role|title }})</span>
+</td>
+<td class="px-space-sm py-2">
+{% if staff.is_active %}
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-tertiary-container/10 text-on-tertiary-container font-medium border border-tertiary-container/20">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+Active
+</span>
+{% else %}
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-error-container text-on-error-container font-medium border border-error-container">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+Inactive
+</span>
+{% endif %}
+</td>
+<td class="px-space-sm py-2 text-label-sm font-label-sm {% if staff.is_active %}text-on-surface{% else %}text-outline{% endif %}">
+{% if staff.last_login %}
+{{ staff.last_login|date:"d M Y, h:i A" }}
+{% else %}
+Never
+{% endif %}
+</td>
+<td class="px-space-md py-2 text-right">
+<div class="flex items-center justify-end gap-1 text-outline">
+<a class="p-1 hover:text-secondary hover:bg-surface-container rounded" href="/staff/edit/{{ staff.id }}/" title="Edit Staff">
+<span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span>
+</a>
+<a class="p-1 hover:text-error hover:bg-surface-container rounded" href="/staff/delete/{{ staff.id }}/" title="Delete Staff" onclick="return confirm('Are you sure you want to delete this staff member?');">
+<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span>
+</a>
+</div>
+</td>
+</tr>
+{% empty %}
+<tr>
+<td colspan="7" class="px-space-md py-8 text-center text-outline">
+No staff members found. <a href="/staff/add/" class="text-secondary hover:underline">Add your first staff member</a>.
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+<!-- Pagination Bar -->
+<div class="p-space-md border-t border-outline-variant flex flex-wrap items-center justify-between gap-space-md bg-surface-container-lowest">
+<div class="flex items-center gap-space-md text-label-sm font-label-sm text-outline">
+<span>Showing <span class="font-semibold text-on-surface">{{ staff_members|length }}</span> of <span class="font-semibold text-on-surface">{{ total_staff }}</span> staff members</span>
+<div class="flex items-center gap-space-xs">
+<span>Per page:</span>
+<select class="py-0.5 px-2 bg-surface-container-lowest border border-outline-variant rounded text-label-sm font-label-sm text-on-surface focus:outline-none">
+<option>10</option>
+<option>25</option>
+<option>50</option>
+</select>
+</div>
+</div>
+<!-- Page Buttons -->
+<div class="flex items-center gap-1">
+<button class="p-1.5 rounded border border-outline-variant text-outline hover:text-on-surface hover:bg-surface-container-low transition-colors disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined text-[16px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="px-2.5 py-1 rounded bg-secondary text-on-secondary font-label-md text-label-md">1</button>
+<button class="px-2.5 py-1 rounded border border-outline-variant text-on-surface hover:bg-surface-container-low font-label-md text-label-md">2</button>
+<button class="p-1.5 rounded border border-outline-variant text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Staff Details & Performance Inspector Panel (4 Cols) -->
+<div class="lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-lg shadow-sm overflow-hidden flex flex-col">
+<div class="p-space-md border-b border-outline-variant flex items-center justify-between bg-surface-container-low/40">
+<div class="flex items-center gap-space-xs text-label-md font-label-md font-bold text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[18px]" data-icon="account_circle">account_circle</span>
+<span>Staff Profile &amp; Privileges</span>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-0.5 bg-tertiary-container/10 text-on-tertiary-container rounded-full font-semibold">Select a staff member</span>
+</div>
+<div class="p-space-lg space-y-space-lg">
+<div class="text-center py-8 text-outline">
+<p class="font-label-md text-label-md">Click on a staff member in the table to view their profile and privileges.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Compliance & Audit Policy Banner -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md flex items-start gap-space-md shadow-sm">
+<div class="p-2 bg-surface-container-high rounded text-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]" data-icon="policy">policy</span>
+</div>
+<div class="flex-1">
+<h4 class="text-label-md font-label-md font-bold text-on-surface">Staff Deactivation &amp; Data Governance Policy</h4>
+<p class="text-body-md font-body-md text-outline mt-0.5">
+            Under Indian GST and Enterprise Retail accounting standards, staff operator profiles cannot be hard-deleted from the database once a billing invoice or cashier receipt has been issued. Deactivating a staff member revokes POS workstation authentication privileges while indefinitely preserving historical sales ledger integrity and audit attribution trails.
+          </p>
+</div>
+<button class="text-label-sm font-label-sm text-secondary font-semibold hover:underline shrink-0">
+          View Compliance Manual
+        </button>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sign In - TextileOne Enterprise POS</title>
+    <!-- Material Symbols Outlined -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Typography Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Configuration verbatim -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#004c6e",
+                        "on-primary-container": "#a8b8ff",
+                        "on-surface": "#131b2e",
+                        "inverse-on-surface": "#eef0ff",
+                        "tertiary": "#003d27",
+                        "surface-tint": "#3755c3",
+                        "on-tertiary-fixed": "#002113",
+                        "primary-container": "#1e40af",
+                        "background": "#faf8ff",
+                        "surface-container": "#eaedff",
+                        "secondary": "#006591",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#173bab",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c4c5d5",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#131b2e",
+                        "inverse-surface": "#283044",
+                        "tertiary-container": "#00563a",
+                        "surface-bright": "#faf8ff",
+                        "on-tertiary-container": "#3fd298",
+                        "surface-container-low": "#f2f3ff",
+                        "surface": "#faf8ff",
+                        "secondary-fixed-dim": "#89ceff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "surface-dim": "#d2d9f4",
+                        "secondary-fixed": "#c9e6ff",
+                        "secondary-container": "#39b8fd",
+                        "surface-container-high": "#e2e7ff",
+                        "inverse-primary": "#b8c4ff",
+                        "on-primary-fixed": "#001453",
+                        "surface-container-highest": "#dae2fd",
+                        "on-secondary-fixed": "#001e2f",
+                        "tertiary-fixed": "#6ffbbe",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#dde1ff",
+                        "outline": "#757684",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-secondary-container": "#004666",
+                        "on-surface-variant": "#444653",
+                        "primary": "#00288e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#dae2fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "space-xs": "0.25rem",
+                        "gutter": "1.5rem",
+                        "space-sm": "0.5rem",
+                        "margin": "2rem",
+                        "space-xl": "2.5rem",
+                        "space-md": "1rem",
+                        "space-lg": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "label-sm": [
+                            "JetBrains Mono"
+                        ],
+                        "label-md": [
+                            "JetBrains Mono"
+                        ],
+                        "headline-lg-mobile": [
+                            "Inter"
+                        ],
+                        "body-sm": [
+                            "Inter"
+                        ],
+                        "headline-md": [
+                            "Inter"
+                        ],
+                        "headline-lg": [
+                            "Inter"
+                        ],
+                        "label-lg": [
+                            "Inter"
+                        ],
+                        "body-md": [
+                            "Inter"
+                        ],
+                        "body-lg": [
+                            "Inter"
+                        ]
+                    },
+                    "fontSize": {
+                        "label-sm": [
+                            "10px",
+                            {
+                                "lineHeight": "14px",
+                                "letterSpacing": "0.04em",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "label-md": [
+                            "12px",
+                            {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.02em",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "headline-lg-mobile": [
+                            "24px",
+                            {
+                                "lineHeight": "32px",
+                                "letterSpacing": "-0.015em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "body-sm": [
+                            "12px",
+                            {
+                                "lineHeight": "16px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "headline-md": [
+                            "20px",
+                            {
+                                "lineHeight": "28px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "headline-lg": [
+                            "30px",
+                            {
+                                "lineHeight": "38px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "label-lg": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "body-md": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "body-lg": [
+                            "16px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                            }
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+
+        /* Subtle industrial ledger grid pattern overlay */
+        .ledger-grid-bg {
+            background-size: 32px 32px;
+            background-image:
+                linear-gradient(to right, rgba(196, 197, 213, 0.18) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(196, 197, 213, 0.18) 1px, transparent 1px);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-surface text-on-surface antialiased min-h-screen flex flex-col justify-between selection:bg-primary-container selection:text-surface-container-lowest">
+    <!-- TOP UTILITY / DIAGNOSTIC HEADER -->
+    <header
+        class="bg-surface-container-lowest flex justify-between items-center w-full px-6 py-3 border-b border-outline-variant shadow-sm z-20">
+        <div class="flex items-center space-x-3">
+            <div
+                class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-container text-surface-container-lowest">
+                <span class="material-symbols-outlined text-[20px]" data-icon="point_of_sale">point_of_sale</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+                <span class="text-headline-md font-headline-md font-bold text-on-surface tracking-tight">TextileOne
+                    Enterprise POS</span>
+                <span
+                    class="hidden md:inline-block text-label-sm font-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant border border-outline-variant">v4.8.2-PROD</span>
+            </div>
+        </div>
+        <!-- Center/Right Live Terminal Metrics -->
+        <div class="flex items-center space-x-4">
+            <!-- Terminal Status Pill -->
+            <div
+                class="hidden sm:flex items-center space-x-2 bg-surface-container-low border border-outline-variant px-2.5 py-1 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-label-sm font-label-sm text-on-surface font-medium">Terminal Online • Store #104 -
+                    Central Outlet</span>
+            </div>
+            <!-- Action & Diagnostic Icons -->
+            <div class="flex items-center space-x-1.5 text-on-surface-variant">
+                <button
+                    class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150"
+                    title="Network Telemetry" type="button">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="wifi">wifi</span>
+                </button>
+                <button
+                    class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150"
+                    title="POS Database Sync" type="button">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="dns">dns</span>
+                </button>
+                <button
+                    class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150"
+                    title="Terminal Diagnostics" type="button">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="help_outline">help_outline</span>
+                </button>
+            </div>
+            <!-- Trailing Action -->
+            <div class="hidden lg:flex items-center pl-2 border-l border-outline-variant space-x-2">
+                <button
+                    class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors duration-150"
+                    type="button">Switch Store</button>
+                <span class="text-label-sm font-label-sm text-outline-variant">•</span>
+                <span class="text-label-sm font-label-sm font-semibold text-primary">Register Mode</span>
+            </div>
+        </div>
+    </header>
+    <!-- MAIN CANVAS WITH GRID TEXTURE -->
+    <main class="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 ledger-grid-bg relative">
+        <!-- Atmospheric subtle ambient aura -->
+        <div class="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
+            <div class="w-[600px] h-[600px] bg-secondary-fixed opacity-20 blur-3xl rounded-full"></div>
+        </div>
+        <!-- Centered Card Container -->
+        <div class="w-full max-w-[460px] relative z-10 my-auto">
+            <!-- Primary Auth Card -->
+            <div
+                class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-xl p-6 sm:p-8 transition-all duration-200">
+                <!-- Brand / Terminal Identity Badge -->
+                <div class="flex flex-col items-center text-center mb-6">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center border border-outline-variant mb-3 shadow-inner">
+                        <span class="material-symbols-outlined text-primary text-[28px]"
+                            data-icon="barcode_scanner">barcode_scanner</span>
+                    </div>
+                    <h1 class="text-headline-md font-headline-md font-bold text-on-surface tracking-tight">
+                        POS Billing System
+                    </h1>
+                    <p class="text-body-sm font-body-sm text-on-surface-variant mt-1">
+                        Sign in to access your retail register &amp; inventory console
+                    </p>
+                    <div
+                        class="mt-3.5 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant">
+                        <span class="material-symbols-outlined text-[14px] text-primary" data-icon="lock">lock</span>
+                        <span class="text-label-sm font-label-sm font-medium text-on-surface">Unified Portal for Admin
+                            &amp; Staff</span>
+                    </div>
+                </div>
+                <!-- Dynamic Inline Notification States -->
+                {% if error %}
+                <div class="mb-5 p-3 rounded-lg border bg-error-container text-on-error-container border-error/30 block"
+                    id="alertBox">
+                    <div class="flex items-start space-x-2.5">
+                        <span class="material-symbols-outlined text-[18px] shrink-0 mt-0.5" id="alertIcon">error</span>
+                        <div class="flex-1 font-medium leading-tight" id="alertText">
+                            <strong>Authentication Error:</strong> {{ error }}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="hidden mb-5 p-3 rounded-lg border text-body-sm font-body-sm transition-all duration-200"
+                    id="alertBox">
+                    <div class="flex items-start space-x-2.5">
+                        <span class="material-symbols-outlined text-[18px] shrink-0 mt-0.5" id="alertIcon">error</span>
+                        <div class="flex-1 font-medium leading-tight" id="alertText"></div>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- Authentication Form -->
+                <form class="space-y-4" id="loginForm" method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <!-- Email / Username Input -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="block text-label-md font-label-md font-semibold text-on-surface"
+                                for="usernameInput">Email / Username</label>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">ID or Staff Badge</span>
+                        </div>
+                        <div class="relative rounded-lg shadow-sm">
+                            <div
+                                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
+                                <span class="material-symbols-outlined text-[18px]" data-icon="badge">badge</span>
+                            </div>
+                            <input autocomplete="username"
+                                class="block w-full h-[46px] pl-10 pr-3.5 text-body-md font-body-md text-on-surface bg-surface-container-low border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest focus:border-primary transition-all duration-150"
+                                id="usernameInput" name="username" placeholder="e.g. admin or staff"
+                                required="" type="text" value="" />
+                        </div>
+                    </div>
+                    <!-- Password Input with Toggle -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="block text-label-md font-label-md font-semibold text-on-surface"
+                                for="passwordInput">Password</label>
+                            <button class="text-label-sm font-label-sm text-primary hover:underline"
+                                onclick="setDemoState('error')" type="button">Trouble logging in?</button>
+                        </div>
+                        <div class="relative rounded-lg shadow-sm">
+                            <div
+                                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
+                                <span class="material-symbols-outlined text-[18px]" data-icon="key">key</span>
+                            </div>
+                            <input autocomplete="current-password"
+                                class="block w-full h-[46px] pl-10 pr-10 text-body-md font-body-md text-on-surface bg-surface-container-low border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest focus:border-primary transition-all duration-150"
+                                id="passwordInput" name="password" placeholder="Enter authorization password"
+                                required="" type="password" value="" />
+                            <button aria-label="Toggle password visibility"
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-on-surface focus:outline-none"
+                                id="togglePasswordBtn" onclick="togglePasswordVisibility()" type="button">
+                                <span class="material-symbols-outlined text-[20px]" data-icon="visibility"
+                                    id="togglePasswordIcon">visibility</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Role Auto-Resolver Context Pill -->
+                    <div
+                        class="p-2.5 rounded-lg bg-surface-container-low border border-outline-variant flex items-center space-x-2">
+                        <span class="material-symbols-outlined text-primary text-[18px] shrink-0"
+                            data-icon="admin_panel_settings">admin_panel_settings</span>
+                        <p class="text-body-sm font-body-sm text-on-surface-variant">
+                            Role permissions (<span class="font-medium text-on-surface">Admin / Supervisor /
+                                Cashier</span>) are resolved automatically upon credential verification.
+                        </p>
+                    </div>
+                    <!-- Auxiliary Options Row -->
+                    <div class="flex items-center justify-between pt-1">
+                        <label class="flex items-center space-x-2 cursor-pointer select-none">
+                            <input checked=""
+                                class="w-4 h-4 rounded text-primary focus:ring-primary border-outline-variant bg-surface-container-low"
+                                id="rememberMe" type="checkbox" />
+                            <span class="text-body-sm font-body-sm text-on-surface">Remember terminal</span>
+                        </label>
+                        <a class="text-body-sm font-body-sm font-medium text-primary hover:underline transition-colors duration-150"
+                            href="javascript:void(0)" onclick="setDemoState('error')">
+                            Forgot Password?
+                        </a>
+                    </div>
+                    <!-- Primary Submit Button -->
+                    <div class="pt-2">
+                        <button
+                            class="w-full h-12 flex items-center justify-center space-x-2 bg-primary-container text-surface-container-lowest rounded-lg font-label-lg text-label-lg font-semibold shadow hover:bg-primary active:scale-[0.99] transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                            id="submitButton" type="submit">
+                            <span class="material-symbols-outlined text-[20px]" data-icon="login"
+                                id="buttonIcon">login</span>
+                            <span id="buttonText">Sign In</span>
+                        </button>
+                    </div>
+                </form>
+                <!-- Session & Security Baseline -->
+                <div
+                    class="mt-6 pt-4 border-t border-outline-variant flex items-center justify-between text-label-sm font-label-sm text-on-surface-variant">
+                    <div class="flex items-center space-x-1.5">
+                        <span class="material-symbols-outlined text-[14px]"
+                            data-icon="verified_user">verified_user</span>
+                        <span>TLS 1.3 256-bit Encrypted</span>
+                    </div>
+                    <div>POS Terminal Node #08</div>
+                </div>
+            </div>
+            <!-- INTERACTIVE STATE SWITCHER / DEMONSTRATION CONTROLS (FOR QA & PREVIEW) -->
+            <div
+                class="mt-4 bg-surface-container-lowest/80 backdrop-blur-sm rounded-lg p-2 border border-outline-variant shadow-sm">
+                <div class="flex items-center justify-between px-2 mb-1.5">
+                    <span
+                        class="text-label-sm font-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Interface
+                        State Preview:</span>
+                    <span class="text-label-sm font-label-sm text-outline">POS Testing Kit</span>
+                </div>
+                <div class="grid grid-cols-4 gap-1.5">
+                    <button
+                        class="px-2 py-1 text-center rounded text-label-sm font-label-sm font-medium bg-primary text-surface-container-lowest transition-colors"
+                        id="tab-default" onclick="setDemoState('default')" type="button">
+                        Default
+                    </button>
+                    <button
+                        class="px-2 py-1 text-center rounded text-label-sm font-label-sm font-medium bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"
+                        id="tab-error" onclick="setDemoState('error')" type="button">
+                        Validation Error
+                    </button>
+                    <button
+                        class="px-2 py-1 text-center rounded text-label-sm font-label-sm font-medium bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"
+                        id="tab-loading" onclick="setDemoState('loading')" type="button">
+                        Loading
+                    </button>
+                    <button
+                        class="px-2 py-1 text-center rounded text-label-sm font-label-sm font-medium bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"
+                        id="tab-success" onclick="setDemoState('success')" type="button">
+                        Success
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- FOOTER -->
+    <footer
+        class="bg-surface-container-low text-on-surface-variant border-t border-outline-variant w-full px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-2">
+        <div class="text-body-sm font-body-sm text-center md:text-left">
+            © 2024 TextileOne Enterprise Systems Inc. Precision Retail &amp; Inventory Logistics. Compliant with PCI-DSS
+            Level 1 &amp; SOC 2 Type II.
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-label-sm font-label-sm">
+            <a class="hover:text-primary transition-colors duration-150" href="javascript:void(0)">Security Policy</a>
+            <span>•</span>
+            <a class="hover:text-primary transition-colors duration-150" href="javascript:void(0)">Terminal
+                Diagnostics</a>
+            <span>•</span>
+            <a class="hover:text-primary transition-colors duration-150" href="javascript:void(0)">Support Desk (Ext:
+                4402)</a>
+            <span>•</span>
+            <a class="hover:text-primary transition-colors duration-150" href="javascript:void(0)">Branch Operations
+                Manual</a>
+        </div>
+    </footer>
+    <!-- SCRIPT FOR STATE SWITCHING AND INTERACTIONS -->
+    <script>
+        let isPasswordRevealed = false;
+
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('passwordInput');
+            const toggleIcon = document.getElementById('togglePasswordIcon');
+
+            isPasswordRevealed = !isPasswordRevealed;
+            if (isPasswordRevealed) {
+                passwordField.type = 'text';
+                toggleIcon.textContent = 'visibility_off';
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.textContent = 'visibility';
+            }
+        }
+
+        function triggerSubmit() {
+            setDemoState('loading');
+            setTimeout(() => {
+                setDemoState('success');
+            }, 1600);
+        }
+
+        function setDemoState(state) {
+            const alertBox = document.getElementById('alertBox');
+            const alertIcon = document.getElementById('alertIcon');
+            const alertText = document.getElementById('alertText');
+            const submitBtn = document.getElementById('submitButton');
+            const buttonIcon = document.getElementById('buttonIcon');
+            const buttonText = document.getElementById('buttonText');
+            const usernameInput = document.getElementById('usernameInput');
+            const passwordInput = document.getElementById('passwordInput');
+
+            // Update switcher tabs
+            const tabs = ['default', 'error', 'loading', 'success'];
+            tabs.forEach(t => {
+                const btn = document.getElementById('tab-' + t);
+                if (t === state) {
+                    btn.className = "px-2 py-1 text-center rounded text-label-sm font-label-sm font-medium bg-primary text-surface-container-lowest transition-colors";
+                } else {
+                    btn.className = "px-2 py-1 text-center rounded text-label-sm font-label-sm font-medium bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors";
+                }
+            });
+
+            // Reset base controls
+            usernameInput.disabled = false;
+            passwordInput.disabled = false;
+            submitBtn.disabled = false;
+            usernameInput.classList.remove('border-error', 'bg-error-container/20');
+            passwordInput.classList.remove('border-error', 'bg-error-container/20');
+
+            if (state === 'default') {
+                alertBox.className = "hidden";
+                buttonIcon.textContent = "login";
+                buttonIcon.classList.remove("animate-spin");
+                buttonText.textContent = "Sign In";
+                submitBtn.className = "w-full h-12 flex items-center justify-center space-x-2 bg-primary-container text-surface-container-lowest rounded-lg font-label-lg text-label-lg font-semibold shadow hover:bg-primary active:scale-[0.99] transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2";
+            }
+            else if (state === 'error') {
+                alertBox.className = "mb-5 p-3 rounded-lg border bg-error-container text-on-error-container border-error/30 block";
+                alertIcon.textContent = "error";
+                alertText.innerHTML = "<strong>Authentication Error:</strong> Invalid username or authorization passkey. Please verify terminal credentials or contact your Store Administrator.";
+
+                usernameInput.classList.add('border-error', 'bg-error-container/20');
+                passwordInput.classList.add('border-error', 'bg-error-container/20');
+
+                buttonIcon.textContent = "login";
+                buttonIcon.classList.remove("animate-spin");
+                buttonText.textContent = "Retry Sign In";
+                submitBtn.className = "w-full h-12 flex items-center justify-center space-x-2 bg-primary-container text-surface-container-lowest rounded-lg font-label-lg text-label-lg font-semibold shadow hover:bg-primary active:scale-[0.99] transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2";
+            }
+            else if (state === 'loading') {
+                alertBox.className = "hidden";
+                usernameInput.disabled = true;
+                passwordInput.disabled = true;
+                submitBtn.disabled = true;
+
+                buttonIcon.textContent = "progress_activity";
+                buttonIcon.classList.add("animate-spin");
+                buttonText.textContent = "Verifying Register Passkey...";
+                submitBtn.className = "w-full h-12 flex items-center justify-center space-x-2 bg-outline text-surface-container-lowest rounded-lg font-label-lg text-label-lg font-semibold cursor-not-allowed opacity-90";
+            }
+            else if (state === 'success') {
+                alertBox.className = "mb-5 p-3 rounded-lg border bg-emerald-50 text-emerald-800 border-emerald-300 block";
+                alertIcon.textContent = "check_circle";
+                alertText.innerHTML = "<strong>Terminal Authorized:</strong> Welcome back, Emily Vance (Floor Supervisor). Syncing today's shift ledger & register drawer...";
+
+                submitBtn.disabled = true;
+                buttonIcon.textContent = "task_alt";
+                buttonIcon.classList.remove("animate-spin");
+                buttonText.textContent = "Access Granted • Redirecting...";
+                submitBtn.className = "w-full h-12 flex items-center justify-center space-x-2 bg-emerald-700 text-surface-container-lowest rounded-lg font-label-lg text-label-lg font-semibold cursor-default shadow";
+            }
+        }
+    </script>
+</body>
+
+</html>

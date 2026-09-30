@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Add Product — POS Billing System Admin Portal</title>
+    <!-- Material Symbols Outlined -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#0058be",
+                        "on-background": "#0b1c30",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-tertiary-fixed": "#002113",
+                        "on-secondary-fixed-variant": "#004395",
+                        "outline-variant": "#c6c6cd",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "surface-tint": "#565e74",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "inverse-primary": "#bec6e0",
+                        "surface-container": "#e5eeff",
+                        "background": "#f8f9ff",
+                        "secondary-container": "#2170e4",
+                        "on-secondary-fixed": "#001a42",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-primary-fixed": "#131b2e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-surface-variant": "#45464d",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary-container": "#7c839b",
+                        "tertiary-container": "#002113",
+                        "surface-dim": "#cbdbf5",
+                        "on-surface": "#0b1c30",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "error-container": "#ffdad6",
+                        "outline": "#76777d",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-container": "#009668",
+                        "surface-bright": "#f8f9ff",
+                        "primary-fixed": "#dae2fd",
+                        "on-error": "#ffffff",
+                        "primary-container": "#131b2e",
+                        "tertiary": "#000000",
+                        "on-secondary-container": "#fefcff",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#6ffbbe",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-container-high": "#dce9ff",
+                        "on-error-container": "#93000a",
+                        "primary": "#000000",
+                        "surface": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "space-xl": "1.5rem",
+                        "margin-mobile": "1rem",
+                        "space-sm": "0.5rem",
+                        "margin": "1.5rem",
+                        "space-xs": "0.25rem",
+                        "space-lg": "1rem",
+                        "space-md": "0.75rem",
+                        "gutter-mobile": "0.75rem",
+                        "gutter": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "code-md": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-xl-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "code-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+                        "headline-xl-mobile": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+                        "headline-xl": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="bg-surface text-on-surface antialiased flex min-h-screen overflow-x-hidden selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+    <!-- ========================================================================= -->
+    <!-- SIDE NAVIGATION (Shared Component: SideNavBar)                            -->
+    <!-- ========================================================================= -->
+    <aside
+        class="fixed top-0 left-0 h-screen w-64 flex flex-col justify-between bg-surface border-r border-outline-variant z-50 select-none">
+        <!-- Top Branding & CTA Area -->
+        <div class="flex flex-col">
+            <!-- Header / Brand -->
+            <div class="px-space-md py-space-md border-b border-outline-variant flex items-center gap-space-sm">
+                <div
+                    class="w-9 h-9 rounded-lg bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-sm">
+                    <span class="material-symbols-outlined text-lg" data-icon="conveyor_belt">conveyor_belt</span>
+                </div>
+                <div class="flex flex-col overflow-hidden">
+                    <span class="font-title-md text-title-md font-bold text-on-surface truncate">POS Billing
+                        System</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant truncate">Enterprise Retail &amp;
+                        Textile</span>
+                </div>
+            </div>
+            <!-- Quick Action CTA -->
+            <div class="p-space-md">
+                <button
+                    class="w-full bg-primary hover:bg-on-primary-fixed-variant text-on-primary font-label-md text-label-md py-2.5 px-space-md rounded-lg flex items-center justify-center gap-space-xs transition-colors duration-150 shadow-sm"
+                    type="button">
+                    <span class="material-symbols-outlined text-sm font-semibold" data-icon="add">add</span>
+                    <span>+ Create New Bill</span>
+                </button>
+            </div>
+            <!-- Navigation Links (Exact 11 Items from JSON Blueprint) -->
+            <nav class="flex flex-col space-y-0.5 px-space-xs overflow-y-auto max-h-[calc(100vh-270px)]">
+                <!-- 1. Dashboard -->
+                <a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg"
+                    href="/staff-dashboard/">
+                    <span class="material-symbols-outlined text-base" data-icon="dashboard">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <!-- 2. Products (ACTIVE / HIGHLIGHTED) -->
+                <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary bg-surface-container-low border-l-2 border-secondary font-label-md text-label-md rounded-r-lg"
+                    href="/products/">
+                    <span class="material-symbols-outlined text-base" data-icon="inventory_2" data-weight="fill"
+                        style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+                    <span>Products</span>
+                </a>
+                <!-- 3. Categories -->
+                <a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg"
+                    href="#">
+                    <span class="material-symbols-outlined text-base" data-icon="category">category</span>
+                    <span>Categories</span>
+                </a>
+                <!-- 4. Staff -->
+                <a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg"
+                    href="#">
+                    <span class="material-symbols-outlined text-base" data-icon="badge">badge</span>
+                    <span>Staff</span>
+                </a>
+                <!-- 5. Suppliers -->
+                <a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg"
+                    href="#">
+                    <span class="material-symbols-outlined text-base" data-icon="conveyor_belt">conveyor_belt</span>
+                    <span>Suppliers</span>
+                </a>
+                <!-- 6. Billing / Transactions -->
+                <a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg"
+                    href="#">
+                    <span class="material-symbols-outlined text-base" data-icon="point_of_sale">point_of_sale</span>
+                    <span>Billing / Transactions</span>
+                </a>
+                <!-- 7. Returns -->
+                <a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg"
+                    href="#">
+                    <span class="material-symbols-outlined text-base"
+                        data-icon="assignment_return">assignment_return</span>
+                    <span>Returns</span>
+                </a>
+                <!-- 8. Inventory -->
+                <a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg"
+                    href="#">
+                    <span class="material-symbols-outlined text-base" data-icon="warehouse">warehouse</span>
+                    <span>Inventory</span>
+                </a>
+                <!-- 9. Ledger -->
+                <a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg"
+                    href="#">
+                    <span class="material-symbols-outlined text-base" data-icon="receipt_long">receipt_long</span>
+                    <span>Ledger</span>
+                </a>
+                <!-- 10. Reports -->
+                <a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg"
+                    href="#">
+                    <span class="material-symbols-outlined text-base" data-icon="analytics">analytics</span>
+                    <span>Reports</span>
+                </a>
+                <!-- 11. Settings -->
+                <a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded-lg"
+                    href="#">
+                    <span class="material-symbols-outlined text-base" data-icon="settings">settings</span>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </div>
+        <!-- Bottom Footer (User & Logout) -->
+        <div class="p-space-sm border-t border-outline-variant bg-surface">
+            <div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low">
+                <div class="flex items-center gap-space-sm overflow-hidden">
+                    <div
+                        class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold text-xs shrink-0">
+                        SA
+                    </div>
+                    <div class="flex flex-col overflow-hidden">
+                        <span class="font-label-md text-label-md text-on-surface truncate">Super Admin</span>
+                        <span class="font-label-sm text-label-sm text-on-surface-variant truncate">Terminal
+                            #04-CW</span>
+                    </div>
+                </div>
+                <button
+                    class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error-container rounded transition-colors duration-150"
+                    title="Sign Out" type="button">
+                    <span class="material-symbols-outlined text-base" data-icon="logout">logout</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+    <!-- ========================================================================= -->
+    <!-- MAIN WORKSPACE CONTAINER                                                  -->
+    <!-- ========================================================================= -->
+    <div class="flex-1 flex flex-col ml-64 min-w-0 bg-surface">
+        <!-- Top Navigation Bar (Shared Component: TopNavBar) -->
+        <header
+            class="h-14 bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-40 px-space-lg flex items-center justify-between">
+            <!-- Left: Breadcrumbs -->
+            <nav class="flex items-center gap-2 font-body-md text-body-md">
+                <a class="text-on-surface-variant hover:text-on-surface transition-colors" href="/staff-dashboard/">Dashboard</a>
+                <span class="text-outline-variant text-xs">/</span>
+                <a class="text-on-surface-variant hover:text-on-surface transition-colors" href="/products/">Products</a>
+                <span class="text-outline-variant text-xs">/</span>
+                <span class="text-secondary font-label-md text-label-md">Add Product</span>
+            </nav>
+            <!-- Right: Store Context & Administrative Quick Tools -->
+            <div class="flex items-center gap-space-md">
+                <!-- Store Switcher Pill Badge -->
+                <div
+                    class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-low border border-outline-variant rounded-full text-on-surface-variant font-label-sm text-label-sm">
+                    <span class="material-symbols-outlined text-sm text-secondary"
+                        data-icon="storefront">storefront</span>
+                    <span class="font-medium text-on-surface">Main Store - Central Warehouse</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim ml-0.5"></span>
+                </div>
+                <div class="h-4 w-px bg-outline-variant hidden sm:block"></div>
+                <!-- Notification Bell with Alert Badge -->
+                <button
+                    class="relative p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low rounded-lg transition-colors"
+                    title="Notifications" type="button">
+                    <span class="material-symbols-outlined text-lg" data-icon="notifications">notifications</span>
+                    <span
+                        class="absolute top-1 right-1 w-4 h-4 bg-error text-on-error rounded-full text-[9px] font-bold flex items-center justify-center">4</span>
+                </button>
+                <!-- Admin Profile Icon -->
+                <button
+                    class="p-1 text-on-surface-variant hover:text-on-surface flex items-center gap-1 rounded-lg hover:bg-surface-container-low transition-colors"
+                    type="button">
+                    <span class="material-symbols-outlined text-2xl text-on-surface"
+                        data-icon="account_circle">account_circle</span>
+                    <span class="material-symbols-outlined text-sm text-outline"
+                        data-icon="expand_more">expand_more</span>
+                </button>
+            </div>
+        </header>
+        <!-- Page Body Canvas -->
+        <main class="flex-1 p-space-xl max-w-5xl w-full mx-auto pb-28">
+            <!-- Page Title & Header Actions Area -->
+            <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-6 border-b border-outline-variant gap-4">
+                <div class="flex items-start gap-space-sm">
+                    <a class="mt-1 p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low rounded-lg border border-outline-variant transition-colors"
+                        href="/products/" title="Back to Products">
+                        <span class="material-symbols-outlined text-lg block" data-icon="arrow_back">arrow_back</span>
+                    </a>
+                    <div>
+                        <div class="flex items-center gap-3">
+                            <h1 class="font-headline-xl text-headline-xl text-on-surface">{% if product %}Edit Product{% else %}Add Product{% endif %}</h1>
+                            <span
+                                class="px-2 py-0.5 rounded-md bg-secondary-fixed text-on-secondary-fixed text-xs font-semibold tracking-wide">NEW
+                                SKU DRAFT</span>
+                        </div>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+                            {% if product %}Edit a product to your inventory catalog and enable barcode verification.{% else %}Add a new product to your inventory catalog and enable barcode verification.{% endif %}
+                            Add a new product to your inventory catalog and enable barcode verification.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-space-sm">
+                    <a class="font-label-md text-label-md text-on-surface-variant hover:text-error px-3 py-2 rounded-lg hover:bg-error-container transition-colors flex items-center gap-1"
+                        href="/products/">
+                        <span class="material-symbols-outlined text-base" data-icon="close">close</span>
+                        <span>Discard Changes</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Main Form Container -->
+            <form class="space-y-6" id="productForm" method="POST" action="{% if product %}/products/edit/{{ product.id }}/{% else %}/products/add/{% endif %}">
+                {% csrf_token %}
+                <!-- ================================================================= -->
+                <!-- FORM SECTION 1 — PRODUCT INFORMATION                              -->
+                <!-- ================================================================= -->
+                <section class="bg-surface-container-lowest rounded-lg border border-outline-variant p-6 shadow-sm">
+                    <!-- Section Header -->
+                    <div class="flex items-center justify-between pb-4 border-b border-surface-container mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary text-xl"
+                                data-icon="inventory_2">inventory_2</span>
+                            <h2 class="font-title-md text-title-md text-on-surface">Product Information</h2>
+                        </div>
+                        <span class="text-xs text-on-surface-variant">Fields marked with <span
+                                class="text-error font-bold">*</span> are required</span>
+                    </div>
+                    <div class="space-y-5">
+                        <!-- Product Name Field -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <label class="font-label-md text-label-md text-on-surface" for="product_name">
+                                    Product Name <span class="text-error font-bold">*</span>
+                                </label>
+                                <span class="text-[11px] text-on-surface-variant font-code-md">Max 120 chars</span>
+                            </div>
+                            <input
+                                class="w-full px-3.5 py-2 text-sm bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface placeholder:text-outline focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/15 transition-all"
+                                id="product_name" name="product_name"
+                                placeholder="e.g., Pure Mulberry Silk Saree / Slim Fit Chino Trousers" required=""
+                                type="text" value="{% if product %}{{ product.name }}{% endif %}" />
+                            <p
+                                class="font-label-sm text-label-sm text-on-tertiary-container mt-1.5 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-xs"
+                                    data-icon="check_circle">check_circle</span>
+                                Valid standard naming convention detected.
+                            </p>
+                        </div>
+                        <!-- Two Column Row: SKU & Category -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <!-- SKU / Barcode Field -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1.5">
+                                    <label class="font-label-md text-label-md text-on-surface" for="sku_code">
+                                        SKU / Barcode <span class="text-error font-bold">*</span>
+                                    </label>
+                                    <button
+                                        class="font-label-sm text-label-sm text-secondary hover:underline flex items-center gap-0.5"
+                                        id="btnAutoGenerateSKU" type="button">
+                                        <span class="material-symbols-outlined text-xs"
+                                            data-icon="autorenew">autorenew</span>
+                                        Auto-generate SKU
+                                    </button>
+                                </div>
+                                <div class="relative">
+                                    <span
+                                        class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-outline">
+                                        <span class="material-symbols-outlined text-base"
+                                            data-icon="barcode_scanner">barcode_scanner</span>
+                                    </span>
+                                    <input
+                                        class="w-full pl-9 pr-3.5 py-2 text-sm font-code-md tracking-wider bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface placeholder:text-outline focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/15 transition-all uppercase"
+                                        id="sku_code" name="sku_code" placeholder="e.g. SAR015, TSH001" required=""
+                                        type="text" value="{% if product %}{{ product.sku }}{% endif %}" />
+                                </div>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant mt-1.5">
+                                    Compatible with Code-128 &amp; GS1 optical barcode scanners.
+                                </p>
+                            </div>
+                            <!-- Category Select Field -->
+                            <div>
+                                <label class="font-label-md text-label-md text-on-surface block mb-1.5"
+                                    for="product_category">
+                                    Category <span class="text-error font-bold">*</span>
+                                </label>
+                                <div class="relative">
+                                    <select
+                                        class="w-full px-3.5 py-2 text-sm bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/15 transition-all appearance-none cursor-pointer"
+                                        id="product_category" name="product_category" required="">
+                                        <option disabled="" value="">Select category</option>
+                                        <option selected="" value="ethnic_sarees">Ethnic Wear &amp; Sarees</option>
+                                        <option value="mens_casual">Menswear / Casual</option>
+                                        <option value="mens_formals">Menswear / Formals</option>
+                                        <option value="denim_bottoms">Denim &amp; Bottoms</option>
+                                        <option value="kids_wear">Kids Wear</option>
+                                        <option value="fabrics_yardage">Fabrics &amp; Yardage</option>
+                                    </select>
+                                    <span
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-outline">
+                                        <span class="material-symbols-outlined text-base"
+                                            data-icon="expand_more">expand_more</span>
+                                    </span>
+                                </div>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant mt-1.5">
+                                    Tax bracket &amp; default HSN are derived automatically from category.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Description Field -->
+                        <div>
+                            <label class="font-label-md text-label-md text-on-surface block mb-1.5"
+                                for="product_description">
+                                Description <span class="text-on-surface-variant font-normal">(Optional)</span>
+                            </label>
+                            <textarea
+                                class="w-full px-3.5 py-2 text-sm bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface placeholder:text-outline focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/15 transition-all resize-y"
+                                id="product_description" name="product_description"
+                                placeholder="Enter product specifications, fabric composition (e.g. 100% combed cotton, handloom silk), weave type, wash care instructions..."
+                                rows="4">{% if product %}{{ product.description }}{% endif %}</textarea>
+                            <div class="flex justify-between items-center mt-1">
+                                <span class="font-label-sm text-label-sm text-on-surface-variant">Recommended for
+                                    customer invoice notes &amp; back-office stock records.</span>
+                                <span class="text-[11px] text-outline font-code-md">214 / 500</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- ================================================================= -->
+                <!-- FORM SECTION 2 — PRICING                                          -->
+                <!-- ================================================================= -->
+                <section class="bg-surface-container-lowest rounded-lg border border-outline-variant p-6 shadow-sm">
+                    <!-- Section Header -->
+                    <div class="flex items-center justify-between pb-4 border-b border-surface-container mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary text-xl"
+                                data-icon="receipt_long">receipt_long</span>
+                            <h2 class="font-title-md text-title-md text-on-surface">Pricing</h2>
+                        </div>
+                        <span class="text-xs text-on-surface-variant">Currency: <strong>INR (₹)</strong></span>
+                    </div>
+                    <p class="font-body-md text-body-md text-on-surface-variant -mt-2 mb-5">
+                        Enter the purchase and selling price of the product to compute automated gross margin.
+                    </p>
+                    <!-- 3-Column Layout: Cost, Selling Price, and Live Margin Badge -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
+                        <!-- Purchase Price (Cost) -->
+                        <div>
+                            <label class="font-label-md text-label-md text-on-surface block mb-1.5"
+                                for="purchase_price">
+                                Purchase Price (Cost) <span class="text-error font-bold">*</span>
+                            </label>
+                            <div class="relative flex items-center">
+                                <span
+                                    class="absolute inset-y-0 left-0 px-3 bg-surface-container-low border-r border-outline-variant rounded-l-lg flex items-center text-on-surface font-code-md text-sm">
+                                    ₹
+                                </span>
+                                <input
+                                    class="w-full pl-10 pr-3.5 py-2 text-sm font-code-md bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/15 transition-all"
+                                    id="purchase_price" min="0" name="purchase_price" placeholder="0.00" required=""
+                                    step="0.01" type="number" value="{% if product %}{{ product.purchase_price }}{% endif %}" />
+                            </div>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant mt-1.5">
+                                Inward vendor landing cost excl. GST.
+                            </p>
+                        </div>
+                        <!-- Selling Price (Retail / MRP) -->
+                        <div>
+                            <label class="font-label-md text-label-md text-on-surface block mb-1.5" for="selling_price">
+                                Selling Price (Retail) <span class="text-error font-bold">*</span>
+                            </label>
+                            <div class="relative flex items-center">
+                                <span
+                                    class="absolute inset-y-0 left-0 px-3 bg-surface-container-low border-r border-outline-variant rounded-l-lg flex items-center text-on-surface font-code-md text-sm">
+                                    ₹
+                                </span>
+                                <input
+                                    class="w-full pl-10 pr-3.5 py-2 text-sm font-code-md bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/15 transition-all"
+                                    id="selling_price" min="0" name="selling_price" placeholder="0.00" required=""
+                                    step="0.01" type="number" value="{% if product %}{{ product.selling_price }}{% endif %}" />
+                            </div>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant mt-1.5">
+                                Target retail price on checkout terminal.
+                            </p>
+                        </div>
+                        <!-- Dynamic Gross Margin Pill & Calculated Summary -->
+                        <div
+                            class="bg-surface-container-low border border-surface-container rounded-lg p-3.5 flex flex-col justify-between self-stretch">
+                            <div class="flex items-center justify-between">
+                                <span
+                                    class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Gross
+                                    Margin</span>
+                                <span
+                                    class="px-2 py-0.5 rounded text-xs font-semibold bg-[#ECFDF5] text-[#065F46] border border-[#A7F3D0]"
+                                    id="marginPill">
+                                    +40.0%
+                                </span>
+                            </div>
+                            <div
+                                class="mt-2 pt-2 border-t border-surface-container flex items-baseline justify-between">
+                                <span class="font-label-sm text-label-sm text-on-surface">Unit Profit:</span>
+                                <span class="font-headline-lg text-headline-lg font-code-md text-secondary"
+                                    id="profitTally">
+                                    ₹3,199.00
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Price Warning State Banner -->
+                    <div class="hidden mt-4 p-3 bg-error-container/30 border border-error/30 rounded-lg flex items-center gap-2 text-error"
+                        id="priceWarning">
+                        <span class="material-symbols-outlined text-base shrink-0" data-icon="warning">warning</span>
+                        <span class="font-label-sm text-label-sm">
+                            Warning: Selling price is lower than purchase cost. This will result in negative transaction
+                            margins.
+                        </span>
+                    </div>
+                </section>
+                <!-- ================================================================= -->
+                <!-- FORM SECTION 3 — INVENTORY                                        -->
+                <!-- ================================================================= -->
+                <section class="bg-surface-container-lowest rounded-lg border border-outline-variant p-6 shadow-sm">
+                    <!-- Section Header -->
+                    <div class="flex items-center justify-between pb-4 border-b border-surface-container mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary text-xl"
+                                data-icon="warehouse">warehouse</span>
+                            <h2 class="font-title-md text-title-md text-on-surface">Inventory</h2>
+                        </div>
+                        <span
+                            class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#ECFDF5] text-[#065F46] border border-[#A7F3D0]">
+                            In Stock Ready
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <!-- Opening Stock Quantity -->
+                        <div>
+                            <label class="font-label-md text-label-md text-on-surface block mb-1.5"
+                                for="stock_quantity">
+                                Opening Stock Quantity <span class="text-error font-bold">*</span>
+                            </label>
+                            <div class="relative">
+                                <input
+                                    class="w-full px-3.5 py-2 text-sm font-code-md bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/15 transition-all"
+                                    id="stock_quantity" min="0" name="stock_quantity"
+                                    placeholder="Enter available quantity (e.g., 25)" required="" step="1" type="number"
+                                    value="{% if product %}{{ product.stock_quantity }}{% endif %}" />
+                                <span
+                                    class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-outline text-xs">
+                                    Units
+                                </span>
+                            </div>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant mt-1.5">
+                                Initial stock count available for immediate billing upon activation. Note: Minimum stock
+                                thresholds are managed in central inventory.
+                            </p>
+                        </div>
+                        <!-- Warehouse / Store Assignment Location -->
+                        <div>
+                            <label class="font-label-md text-label-md text-on-surface block mb-1.5">
+                                Store Location / Warehouse Assignment
+                            </label>
+                            <div
+                                class="p-2.5 bg-surface-container-low border border-outline-variant rounded-lg flex items-center justify-between">
+                                <div class="flex items-center gap-2 overflow-hidden">
+                                    <span class="material-symbols-outlined text-base text-secondary shrink-0"
+                                        data-icon="location_on">location_on</span>
+                                    <div class="flex flex-col truncate">
+                                        <span class="font-label-md text-label-md text-on-surface truncate">Main Store -
+                                            Central Warehouse</span>
+                                        <span class="font-code-md text-xs text-on-surface-variant">Zone B · Shelf A-04 /
+                                            Rack 2</span>
+                                    </div>
+                                </div>
+                                <span
+                                    class="px-2 py-0.5 rounded bg-surface-container-highest text-on-secondary-fixed text-[11px] font-semibold uppercase tracking-wider shrink-0">
+                                    Fixed Default
+                                </span>
+                            </div>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant mt-1.5">
+                                Secondary location bins can be mapped after product creation.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <!-- ================================================================= -->
+                <!-- FORM SECTION 4 — STATUS                                           -->
+                <!-- ================================================================= -->
+                <section class="bg-surface-container-lowest rounded-lg border border-outline-variant p-6 shadow-sm">
+                    <!-- Section Header -->
+                    <div class="flex items-center justify-between pb-4 border-b border-surface-container mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary text-xl"
+                                data-icon="toggle_on">toggle_on</span>
+                            <h2 class="font-title-md text-title-md text-on-surface">Status</h2>
+                        </div>
+                        <span
+                            class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#ECFDF5] text-[#065F46] border border-[#A7F3D0] flex items-center gap-1"
+                            id="statusIndicator">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#065F46]"></span>
+                            Active in POS
+                        </span>
+                    </div>
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1">
+                            <label class="font-label-md text-label-md text-on-surface block cursor-pointer"
+                                for="statusToggle">
+                                Product Active Status
+                            </label>
+                            <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                                Active products are immediately available in POS checkout and barcode scanning. Inactive
+                                products cannot be selected for new billing transactions.
+                            </p>
+                        </div>
+                        <!-- Custom Switch Toggle -->
+                        <label class="relative inline-flex items-center cursor-pointer shrink-0 mt-1">
+                            <input {% if product and product.is_active %}checked{% endif %} class="sr-only peer" id="statusToggle" name="is_active" type="checkbox" />
+                            <div
+                                class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary">
+                            </div>
+                        </label>
+                    </div>
+                </section>
+            </form>
+        </main>
+        <!-- ========================================================================= -->
+        <!-- STICKY BOTTOM FORM ACTIONS BAR                                            -->
+        <!-- ========================================================================= -->
+        <div
+            class="fixed bottom-0 right-0 left-64 bg-surface-container-lowest border-t border-outline-variant py-3 px-space-xl z-40 flex items-center justify-between shadow-md">
+            <!-- Left Info Hint -->
+            <div class="hidden sm:flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+                <span class="material-symbols-outlined text-sm text-secondary" data-icon="cloud_sync">cloud_sync</span>
+                <span>Auto-sync enabled for offline terminals upon creation.</span>
+            </div>
+            <!-- Action Buttons Cluster -->
+            <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                <!-- Cancel Action -->
+                <a class="px-4 py-2 border border-outline-variant hover:bg-surface-container-low text-on-surface rounded-lg font-label-md text-label-md transition-colors"
+                    href="#">
+                    Cancel
+                </a>
+                <!-- Save & Add Another Action -->
+                <button
+                    class="px-4 py-2 border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low text-on-surface rounded-lg font-label-md text-label-md transition-colors flex items-center gap-1.5 shadow-sm"
+                    id="btnSaveAndNew" type="button">
+                    <span class="material-symbols-outlined text-sm" data-icon="add_circle">add_circle</span>
+                    <span>Save &amp; Add Another</span>
+                </button>
+                <!-- Save Product Action (Primary) -->
+                <button
+                    class="px-5 py-2 bg-secondary hover:bg-secondary-container text-on-secondary rounded-lg font-label-md text-label-md transition-colors flex items-center gap-1.5 shadow-sm"
+                    form="productForm" type="submit">
+                    <span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+                    <span>Save Product</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Inline Script for Realistic Calculator and Interactive Cues -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const purchaseInput = document.getElementById('purchase_price');
+            const sellingInput = document.getElementById('selling_price');
+            const marginPill = document.getElementById('marginPill');
+            const profitTally = document.getElementById('profitTally');
+            const priceWarning = document.getElementById('priceWarning');
+            const statusToggle = document.getElementById('statusToggle');
+            const statusIndicator = document.getElementById('statusIndicator');
+            const btnAutoGenerateSKU = document.getElementById('btnAutoGenerateSKU');
+            const skuInput = document.getElementById('sku_code');
+
+            function calculateMargin() {
+                const purchase = parseFloat(purchaseInput.value) || 0;
+                const selling = parseFloat(sellingInput.value) || 0;
+                const profit = selling - purchase;
+
+                if (selling > 0) {
+                    const marginPercent = ((profit / selling) * 100).toFixed(1);
+
+                    if (profit < 0) {
+                        marginPill.textContent = `${marginPercent}%`;
+                        marginPill.className = 'px-2 py-0.5 rounded text-xs font-semibold bg-[#FEF2F2] text-[#991B1B] border border-[#FECACA]';
+                        profitTally.textContent = `-₹${Math.abs(profit).toFixed(2)}`;
+                        profitTally.className = 'font-headline-lg text-headline-lg font-code-md text-error';
+                        priceWarning.classList.remove('hidden');
+                    } else {
+                        marginPill.textContent = `+${marginPercent}%`;
+                        marginPill.className = 'px-2 py-0.5 rounded text-xs font-semibold bg-[#ECFDF5] text-[#065F46] border border-[#A7F3D0]';
+                        profitTally.textContent = `₹${profit.toFixed(2)}`;
+                        profitTally.className = 'font-headline-lg text-headline-lg font-code-md text-secondary';
+                        priceWarning.classList.add('hidden');
+                    }
+                } else {
+                    marginPill.textContent = '0.0%';
+                    profitTally.textContent = '₹0.00';
+                    priceWarning.classList.add('hidden');
+                }
+            }
+
+            purchaseInput.addEventListener('input', calculateMargin);
+            sellingInput.addEventListener('input', calculateMargin);
+
+            // Status Toggle Interactive Feedback
+            statusToggle.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    statusIndicator.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-[#065F46]"></span> Active in POS';
+                    statusIndicator.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#ECFDF5] text-[#065F46] border border-[#A7F3D0] flex items-center gap-1';
+                } else {
+                    statusIndicator.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Inactive';
+                    statusIndicator.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-surface-container-high text-on-surface-variant border border-outline-variant flex items-center gap-1';
+                }
+            });
+
+            // Auto-generate realistic SKU
+            btnAutoGenerateSKU.addEventListener('click', () => {
+                const randomNum = Math.floor(1000 + Math.random() * 9000);
+                skuInput.value = `TX-SAR-${randomNum}`;
+            });
+        });
+    </script>
+</body>
+
+</html>

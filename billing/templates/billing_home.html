@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen">
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-white border-r border-slate-200 p-5">
+            <div class="mb-8">
+                <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold">B</div>
+                    <div>
+                        <div class="font-bold text-lg">Billing</div>
+                        <div class="text-xs text-slate-500">POS Terminal</div>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="space-y-2">
+                <a href="/billing/" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-slate-900 text-white font-medium">Billing Home</a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100">Products</a>
+                <a href="{% url 'logout' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50">Logout</a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-6">
+            <header class="flex items-center justify-between mb-6">
+                <div>
+                    <p class="text-sm uppercase tracking-wide text-slate-500">Cashier dashboard</p>
+                    <h1 class="text-3xl font-bold">Welcome, {{ user.get_full_name|default:user.username }}</h1>
+                </div>
+                <a href="/billing/pos_billing/" class="bg-slate-900 text-white px-4 py-2 rounded-lg font-medium hover:bg-slate-700">+ Create New Bill</a>
+            </header>
+
+            <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                    <p class="text-sm text-slate-500">Total products</p>
+                    <p class="mt-2 text-3xl font-bold">{{ total_products }}</p>
+                </div>
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                    <p class="text-sm text-slate-500">Total stock</p>
+                    <p class="mt-2 text-3xl font-bold">{{ total_stock }}</p>
+                </div>
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                    <p class="text-sm text-slate-500">Revenue</p>
+                    <p class="mt-2 text-3xl font-bold">₹{{ total_revenue|floatformat:2 }}</p>
+                </div>
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                    <p class="text-sm text-slate-500">Low stock items</p>
+                    <p class="mt-2 text-3xl font-bold text-amber-600">{{ low_stock_products }}</p>
+                </div>
+            </section>
+
+            <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <div class="xl:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="border-b border-slate-200 px-5 py-4 flex items-center justify-between">
+                        <h2 class="text-xl font-bold">Recent sales</h2>
+                        <span class="text-sm text-slate-500">{{ today_transactions }} today</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-left">
+                            <thead class="bg-slate-50 text-sm text-slate-600">
+                                <tr>
+                                    <th class="px-5 py-3 font-medium">Bill</th>
+                                    <th class="px-5 py-3 font-medium">Cashier</th>
+                                    <th class="px-5 py-3 font-medium">Items</th>
+                                    <th class="px-5 py-3 font-medium">Amount</th>
+                                    <th class="px-5 py-3 font-medium">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sale in recent_sales %}
+                                <tr class="border-t border-slate-200">
+                                    <td class="px-5 py-3 font-medium">{{ sale.bill_number }}</td>
+                                    <td class="px-5 py-3">{{ sale.staff.get_full_name|default:sale.staff.username }}</td>
+                                    <td class="px-5 py-3">
+                                        {% for item in sale.items.all %}
+                                            {{ item.product.name }}{% if not forloop.last %}, {% endif %}
+                                        {% empty %}
+                                            -
+                                        {% endfor %}
+                                    </td>
+                                    <td class="px-5 py-3">₹{{ sale.total_amount|floatformat:2 }}</td>
+                                    <td class="px-5 py-3 text-slate-500">{{ sale.created_at|date:"d M Y, h:i A" }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td class="px-5 py-6 text-slate-500" colspan="5">No sales found in the database yet.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                        <h3 class="text-lg font-bold mb-4">Today summary</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Transactions</span>
+                                <span class="font-semibold">{{ today_transactions }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Revenue</span>
+                                <span class="font-semibold">₹{{ today_revenue|floatformat:2 }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Active staff</span>
+                                <span class="font-semibold">{{ active_staff }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                        <h3 class="text-lg font-bold mb-4">Product stock</h3>
+                        <div class="space-y-3">
+                            {% for product in products|slice:":5" %}
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-medium">{{ product.name }}</div>
+                                    <div class="text-xs text-slate-500">SKU: {{ product.sku }}</div>
+                                </div>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium {% if product.stock_quantity <= 10 %}bg-amber-100 text-amber-700{% else %}bg-emerald-100 text-emerald-700{% endif %}">
+                                    {{ product.stock_quantity }} in stock
+                                </span>
+                            </div>
+                            {% empty %}
+                            <p class="text-slate-500 text-sm">No active products in the database.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

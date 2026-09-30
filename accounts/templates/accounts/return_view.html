@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Details | Textile POS ERP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { colors: { primary: '#000000', 'primary-container': '#131b2e', 'on-primary': '#ffffff', secondary: '#0058be', 'secondary-container': '#2170e4', 'on-secondary': '#ffffff', surface: '#f8f9ff', 'surface-container': '#e5eeff', 'surface-container-low': '#eff4ff', 'surface-container-lowest': '#ffffff', 'surface-container-high': '#dce9ff', 'on-surface': '#0b1c30', 'on-surface-variant': '#45464d', outline: '#76777d', 'outline-variant': '#c6c6cd', background: '#f8f9ff', error: '#ba1a1a', 'error-container': '#ffdad6' } } }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20; font-size: 18px; line-height: 1; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen font-[Inter]">
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-surface-container-lowest border-r border-outline-variant p-5 flex-shrink-0">
+            <div class="mb-8">
+                <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-bold">B</div>
+                    <div>
+                        <div class="font-bold text-lg text-on-surface">Billing</div>
+                        <div class="text-xs text-on-surface-variant">POS Terminal</div>
+                    </div>
+                </div>
+            </div>
+            <nav class="space-y-2">
+                <a href="/staff-dashboard/" class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low">Dashboard</a>
+                <a href="/billing/" class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low">Transactions</a>
+                <a href="/billing/pos_billing/" class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low">New Bill</a>
+                <a href="/billing/returns/" class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low">Returns</a>
+                <a href="/products/" class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low">Products</a>
+                <a href="/logout/" class="flex items-center gap-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50">Logout</a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-6 bg-surface">
+            {% if is_empty or not return_transaction %}
+                <div class="bg-surface-container-lowest border border-dashed border-outline-variant rounded-xl p-10 text-center text-on-surface-variant">
+                    <h1 class="text-2xl font-bold text-on-surface mb-2">No return record found</h1>
+                    <p class="mb-4">There are no completed return transactions in the database yet.</p>
+                    <a href="/billing/returns/" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary-container text-on-primary font-medium">Go to returns</a>
+                </div>
+            {% else %}
+                <header class="mb-6 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-sm text-on-surface-variant mb-2">
+                            <a href="/staff-dashboard/" class="hover:text-secondary">Dashboard</a>
+                            <span>/</span>
+                            <a href="/billing/returns/" class="hover:text-secondary">Returns</a>
+                            <span>/</span>
+                            <span class="font-semibold text-on-surface">{{ return_transaction.return_number }}</span>
+                        </div>
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <h1 class="text-3xl font-bold text-on-surface">Return details - {{ return_transaction.return_number }}</h1>
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold">
+                                <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                {{ return_transaction.status|title }}
+                            </span>
+                        </div>
+                        <p class="mt-2 text-sm text-on-surface-variant">Detailed audit record for the returned items and stock restoration.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <a href="/billing/returns/?sale_id={{ sale.id }}" class="inline-flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg text-sm font-medium text-on-surface hover:bg-surface-container-low">
+                            <span class="material-symbols-outlined text-[16px]">receipt</span>
+                            View original bill
+                        </a>
+                        <button type="button" onclick="window.print()" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-on-primary text-sm font-medium hover:opacity-90">
+                            <span class="material-symbols-outlined text-[16px]">print</span>
+                            Print return receipt
+                        </button>
+                    </div>
+                </header>
+
+                <section class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 bg-surface-container-lowest border border-outline-variant rounded-xl p-4 mb-6">
+                    <div>
+                        <p class="text-[11px] uppercase tracking-wide text-on-surface-variant">Return number</p>
+                        <p class="mt-1 font-semibold text-on-surface">{{ return_transaction.return_number }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[11px] uppercase tracking-wide text-on-surface-variant">Return date</p>
+                        <p class="mt-1 font-semibold text-on-surface">{{ return_transaction.created_at|date:'d M Y, H:i' }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[11px] uppercase tracking-wide text-on-surface-variant">Processed by</p>
+                        <p class="mt-1 font-semibold text-on-surface">{{ return_transaction.processed_by.get_full_name|default:return_transaction.processed_by.username }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[11px] uppercase tracking-wide text-on-surface-variant">Original bill</p>
+                        <p class="mt-1 font-semibold text-secondary">{{ return_transaction.sale.bill_number }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[11px] uppercase tracking-wide text-on-surface-variant">Refund method</p>
+                        <p class="mt-1 font-semibold capitalize text-on-surface">{{ return_transaction.refund_method }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[11px] uppercase tracking-wide text-on-surface-variant">Refund total</p>
+                        <p class="mt-1 font-semibold text-on-surface">₹{{ return_transaction.refund_amount|floatformat:2 }}</p>
+                    </div>
+                </section>
+
+                <section class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+                    <div class="xl:col-span-8 space-y-6">
+                        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+                            <div class="px-4 py-3 border-b border-outline-variant bg-surface flex items-center justify-between gap-3">
+                                <div>
+                                    <h2 class="text-lg font-bold text-on-surface">Returned products</h2>
+                                    <p class="text-xs text-on-surface-variant">Items restored to inventory after the return was approved.</p>
+                                </div>
+                                <span class="inline-flex items-center gap-1 rounded-full bg-surface-container text-secondary px-2 py-1 text-[11px] font-semibold">
+                                    <span class="material-symbols-outlined text-[14px]">inventory</span>
+                                    {{ return_items|length }} item{{ return_items|length|pluralize }}
+                                </span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full border-collapse text-left">
+                                    <thead class="bg-surface text-[11px] uppercase tracking-wider text-on-surface-variant">
+                                        <tr>
+                                            <th class="px-4 py-3 font-semibold">Product</th>
+                                            <th class="px-4 py-3 font-semibold">SKU</th>
+                                            <th class="px-4 py-3 font-semibold text-center">Qty sold</th>
+                                            <th class="px-4 py-3 font-semibold text-center">Qty returned</th>
+                                            <th class="px-4 py-3 font-semibold text-right">Unit price</th>
+                                            <th class="px-4 py-3 font-semibold text-right">Refund</th>
+                                            <th class="px-4 py-3 font-semibold">Restock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-outline-variant">
+                                        {% for item in return_items %}
+                                            <tr class="bg-surface-container-lowest hover:bg-surface-container-low">
+                                                <td class="px-4 py-3">
+                                                    <div class="font-semibold text-on-surface">{{ item.sale_item.product.name }}</div>
+                                                    <div class="text-[11px] text-on-surface-variant">{{ item.sale_item.product.description|default:'Returned at customer request' }}</div>
+                                                </td>
+                                                <td class="px-4 py-3 text-[12px] text-on-surface-variant">{{ item.sale_item.product.sku }}</td>
+                                                <td class="px-4 py-3 text-center text-[12px]">{{ item.sale_item.quantity }} pcs</td>
+                                                <td class="px-4 py-3 text-center text-[12px] font-semibold text-error">{{ item.quantity }} pcs</td>
+                                                <td class="px-4 py-3 text-right text-[12px] font-semibold">₹{{ item.sale_item.unit_price|floatformat:2 }}</td>
+                                                <td class="px-4 py-3 text-right text-[12px] font-semibold">₹{{ item.refund_amount|floatformat:2 }}</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center gap-1 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200 px-2 py-1 text-[11px] font-semibold">
+                                                        <span class="material-symbols-outlined text-[12px]">shelves</span>
+                                                        Restocked
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="7" class="px-4 py-8 text-center text-on-surface-variant">No item rows were recorded for this return.</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4">
+                            <h2 class="text-lg font-bold text-on-surface mb-3">Return audit details</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="rounded-lg bg-surface border border-outline-variant p-3">
+                                    <p class="text-[11px] uppercase tracking-wide text-on-surface-variant">Reason</p>
+                                    <p class="mt-1 font-semibold text-on-surface">{{ return_transaction.reason }}</p>
+                                </div>
+                                <div class="rounded-lg bg-surface border border-outline-variant p-3">
+                                    <p class="text-[11px] uppercase tracking-wide text-on-surface-variant">Original payment mode</p>
+                                    <p class="mt-1 font-semibold capitalize text-on-surface">{{ return_transaction.sale.payment_method }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="xl:col-span-4 space-y-6">
+                        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <h2 class="text-lg font-bold text-on-surface">Refund summary</h2>
+                                <span class="material-symbols-outlined text-[18px] text-on-surface-variant">lock</span>
+                            </div>
+                            <div class="space-y-3 text-sm text-on-surface-variant">
+                                <div class="flex justify-between">
+                                    <span>Items returned</span>
+                                    <span class="font-semibold text-on-surface">{{ return_items|length }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Refund amount</span>
+                                    <span class="font-semibold text-on-surface">₹{{ return_transaction.refund_amount|floatformat:2 }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Original bill</span>
+                                    <span class="font-semibold text-on-surface">{{ return_transaction.sale.bill_number }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Customer</span>
+                                    <span class="font-semibold text-on-surface">{{ return_transaction.sale.staff.get_full_name|default:return_transaction.sale.staff.username }}</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 rounded-xl bg-primary-container p-4 text-on-primary">
+                                <div class="text-[10px] uppercase tracking-wide text-on-primary/75">Total refund</div>
+                                <div class="text-3xl font-bold mt-1">₹{{ return_transaction.refund_amount|floatformat:2 }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+        </main>
+    </div>
+</body>
+</html>

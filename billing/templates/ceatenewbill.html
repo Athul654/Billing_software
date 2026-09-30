@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Billing - Create New Bill | Textile POS ERP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#000000",
+                        "primary-container": "#131b2e",
+                        "on-primary": "#ffffff",
+                        secondary: "#0058be",
+                        "secondary-container": "#2170e4",
+                        "on-secondary": "#ffffff",
+                        surface: "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "on-surface": "#0b1c30",
+                        "on-surface-variant": "#45464d",
+                        outline: "#76777d",
+                        "outline-variant": "#c6c6cd",
+                        background: "#f8f9ff",
+                        error: "#ba1a1a",
+                        "error-container": "#ffdad6"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+            font-size: 18px;
+            line-height: 1;
+        }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .qty-input {
+            width: 4.5rem;
+            text-align: center;
+        }
+        .qty-btn {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.5rem;
+            border: 1px solid #c6c6cd;
+            background: #f8f9ff;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased h-screen overflow-hidden flex flex-col font-[Inter] select-none">
+    <form id="billForm" method="post" class="flex flex-col h-full w-full">
+        {% csrf_token %}
+        <header class="bg-surface-container-lowest border-b border-outline-variant px-6 h-14 flex items-center justify-between shadow-sm z-20 flex-shrink-0">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="bg-primary-container text-on-primary text-[11px] font-semibold px-2 py-1 rounded uppercase tracking-wider">POS billing</span>
+                    <h1 class="text-[16px] font-semibold text-on-surface">Create New Bill</h1>
+                </div>
+                <div class="hidden sm:flex items-center gap-2 pl-3 border-l border-outline-variant text-[11px] text-on-surface-variant">
+                    <span class="font-mono bg-surface-container-high text-secondary px-2 py-0.5 rounded">INV-{{ user.username|upper }}</span>
+                    <span>•</span>
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]">schedule</span>
+                        {{ user.get_full_name|default:user.username }}
+                    </span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="/billing/" class="hidden md:flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-outline-variant text-on-surface text-[12px] font-medium hover:bg-surface-container-low">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                    Transactions
+                </a>
+                <a href="/staff/" class="hidden md:flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-outline-variant text-on-surface text-[12px] font-medium hover:bg-surface-container-low">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    Staff Dashboard
+                </a>
+                <div class="flex items-center gap-2 pl-2 border-l border-outline-variant">
+                    <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-[12px]">
+                        {{ user.first_name|slice:':1'|default:'S' }}{{ user.last_name|slice:':1'|upper|default:'T' }}
+                    </div>
+                    <div class="text-left hidden sm:block">
+                        <div class="text-[12px] font-medium text-on-surface leading-tight">{{ user.get_full_name|default:user.username }}</div>
+                        <span class="inline-block bg-surface-container-high text-secondary text-[10px] font-semibold px-1.5 py-0.2 rounded">Cashier</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 flex flex-col lg:flex-row overflow-hidden">
+            <section class="lg:w-[58%] h-full flex flex-col border-r border-outline-variant bg-surface overflow-hidden">
+                <div class="p-4 bg-surface-container-lowest border-b border-outline-variant space-y-3 flex-shrink-0">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[16px] font-semibold text-on-surface">Available Products</span>
+                            <span class="bg-surface-container-high text-secondary text-[11px] font-semibold px-2 py-0.5 rounded-full">{{ products|length }} Items</span>
+                        </div>
+                        <span class="text-[11px] text-on-surface-variant hidden sm:inline">Press product card to quick add</span>
+                    </div>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+                        <input id="productSearchInput" class="w-full h-10 pl-9 pr-9 bg-surface border border-outline-variant rounded-lg text-[13px] text-on-surface placeholder:text-outline focus:border-secondary focus:ring-2 focus:ring-secondary/20 focus:outline-none" placeholder="Search products by name or SKU..." type="text">
+                        <button type="button" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface p-1" onclick="document.getElementById('productSearchInput').value=''">
+                            <span class="material-symbols-outlined text-[16px]">close</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex-1 overflow-y-auto p-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+                        {% for product in products %}
+                        <div class="product-card bg-surface-container-lowest border border-outline-variant rounded-xl p-3 flex flex-col justify-between hover:border-secondary transition-all shadow-sm">
+                            <div>
+                                <div class="flex justify-between items-start mb-1">
+                                    <span class="text-[10px] font-mono text-on-surface-variant">{{ product.sku }}</span>
+                                    <span class="text-[10px] {% if product.stock_quantity <= 10 %}text-error bg-error-container{% else %}text-on-tertiary-fixed-variant bg-surface-container-low{% endif %} px-1.5 py-0.5 rounded font-medium">Stock: {{ product.stock_quantity }}</span>
+                                </div>
+                                <h3 class="text-[16px] font-semibold text-on-surface leading-snug">{{ product.name }}</h3>
+                                <p class="text-[11px] text-outline">{{ product.description|default:'Available in stock' }}</p>
+                            </div>
+                            <div class="mt-3 pt-2 border-t border-surface-variant flex items-center justify-between gap-2">
+                                <span class="text-[20px] font-bold text-on-surface">₹{{ product.selling_price|floatformat:2 }}</span>
+                                <div class="flex items-center gap-2">
+                                    <button type="button" class="qty-btn minus-btn" data-product-id="{{ product.id }}" data-step="-1">-</button>
+                                    <input type="number" name="qty_{{ product.id }}" min="0" max="{{ product.stock_quantity }}" value="0" data-product-id="{{ product.id }}" data-price="{{ product.selling_price }}" class="qty-input border border-outline-variant rounded-lg px-2 py-1 text-[12px] bg-surface">
+                                    <button type="button" class="qty-btn plus-btn" data-product-id="{{ product.id }}" data-step="1">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-span-full rounded-xl border border-dashed border-outline-variant bg-surface-container-lowest p-8 text-center text-on-surface-variant">
+                            No active products available in the database.
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <section class="lg:w-[42%] h-full flex flex-col bg-surface-container-lowest shadow-sm overflow-hidden">
+                <div class="px-4 py-2.5 bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between flex-shrink-0">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-secondary">shopping_cart</span>
+                        <span class="text-[12px] font-bold uppercase tracking-wider text-on-surface">Current Bill</span>
+                        <span class="bg-surface-container-high text-secondary text-[10px] font-semibold px-2 py-0.5 rounded-full" id="cartCountBadge">0 items (0 pcs)</span>
+                    </div>
+                    <button type="button" class="text-error hover:text-on-error-container hover:bg-error-container/20 px-2 py-1 rounded text-[11px] flex items-center gap-1 transition-colors" onclick="clearCart()">
+                        <span class="material-symbols-outlined text-[16px]">delete_sweep</span>
+                        Clear Cart
+                    </button>
+                </div>
+
+                <div class="flex-1 overflow-y-auto px-4 py-3 divide-y divide-surface-container-low" id="cartItemList">
+                    <div class="py-12 text-center text-on-surface-variant" id="emptyCartState">
+                        <span class="material-symbols-outlined text-outline text-[32px] mb-2 block">remove_shopping_cart</span>
+                        <p class="text-[13px]">Cart is empty. Select products to add.</p>
+                    </div>
+                </div>
+
+                <div class="border-t border-outline-variant bg-surface p-4 space-y-3 flex-shrink-0 shadow-inner">
+                    <div class="space-y-2 text-[13px]">
+                        <div class="flex justify-between items-center text-on-surface-variant">
+                            <span>Subtotal</span>
+                            <span class="font-mono font-semibold text-on-surface" id="summarySubtotal">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center text-on-surface-variant">
+                            <span>Discount</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] text-outline">₹</span>
+                                <input id="discountInput" name="discount" type="number" step="0.01" value="0.00" class="w-24 h-7 px-2 py-1 border border-outline-variant rounded text-right bg-surface-container-lowest text-[12px] focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none">
+                            </div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-primary-container text-on-primary flex items-center justify-between shadow-sm">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-on-primary/80 block">Total Payable</span>
+                                <span class="text-[11px] text-on-primary/80">Inclusive of retail taxes</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[22px] font-bold tracking-tight" id="grandTotalDisplay">₹0.00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 border-t border-outline-variant/60 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] uppercase font-semibold text-on-surface-variant tracking-wider">Payment Method</span>
+                            <span class="text-[10px] text-secondary font-medium">Terminal Connected</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-1.5 p-1 bg-surface-container-low rounded-lg border border-outline-variant">
+                            <button type="button" class="h-8 rounded flex items-center justify-center gap-1 text-[12px] font-semibold bg-primary-container text-on-primary" data-method="cash">
+                                <span class="material-symbols-outlined text-[14px]">check</span> Cash
+                            </button>
+                            <button type="button" class="h-8 rounded flex items-center justify-center gap-1 text-[12px] font-semibold text-on-surface-variant" data-method="upi">
+                                <span class="material-symbols-outlined text-[14px]">qr_code_scanner</span> UPI
+                            </button>
+                            <button type="button" class="h-8 rounded flex items-center justify-center gap-1 text-[12px] font-semibold text-on-surface-variant" data-method="card">
+                                <span class="material-symbols-outlined text-[14px]">credit_card</span> Card
+                            </button>
+                        </div>
+                        <input type="hidden" id="paymentMethodInput" name="payment_method" value="cash">
+                    </div>
+
+                    <button type="submit" class="w-full h-12 bg-primary-container hover:bg-primary-container/90 text-on-primary rounded-xl font-bold flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer">
+                        <span class="material-symbols-outlined font-bold">check_circle</span>
+                        <span>Generate Bill</span>
+                    </button>
+                </div>
+            </section>
+        </main>
+    </form>
+
+    <script>
+        const productInputs = document.querySelectorAll('.qty-input');
+        const paymentButtons = document.querySelectorAll('[data-method]');
+        const paymentMethodInput = document.getElementById('paymentMethodInput');
+        const discountInput = document.getElementById('discountInput');
+        const cartItemList = document.getElementById('cartItemList');
+
+        function formatCurrency(value) {
+            return '₹' + Number(value).toFixed(2);
+        }
+
+        function updateCartSummary() {
+            let subtotal = 0;
+            let itemCount = 0;
+            let totalQty = 0;
+            let visibleItems = [];
+
+            productInputs.forEach(input => {
+                const qty = parseInt(input.value || '0');
+                const price = parseFloat(input.dataset.price || '0');
+                const productId = input.dataset.productId;
+                if (qty > 0) {
+                    const lineTotal = qty * price;
+                    subtotal += lineTotal;
+                    itemCount += 1;
+                    totalQty += qty;
+                    const name = input.closest('.product-card').querySelector('h3').textContent;
+                    visibleItems.push({ productId, qty, lineTotal, price, name });
+                }
+            });
+
+            document.getElementById('summarySubtotal').textContent = formatCurrency(subtotal);
+            const discount = parseFloat(discountInput.value || '0');
+            const total = Math.max(0, subtotal - discount);
+            document.getElementById('grandTotalDisplay').textContent = formatCurrency(total);
+            document.getElementById('cartCountBadge').textContent = `${itemCount} items (${totalQty} pcs)`;
+
+            if (visibleItems.length === 0) {
+                cartItemList.innerHTML = '<div class="py-12 text-center text-on-surface-variant" id="emptyCartState"><span class="material-symbols-outlined text-outline text-[32px] mb-2 block">remove_shopping_cart</span><p class="text-[13px]">Cart is empty. Select products to add.</p></div>';
+                return;
+            }
+
+            cartItemList.innerHTML = visibleItems.map(item => `
+                <div class="py-2.5 flex items-center justify-between gap-2 group">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-1.5">
+                            <h4 class="text-[14px] font-semibold text-on-surface truncate">${item.name}</h4>
+                        </div>
+                        <div class="text-[11px] text-on-surface-variant">Rate: ${formatCurrency(item.price)}</div>
+                    </div>
+                    <div class="flex items-center gap-3 flex-shrink-0">
+                        <div class="flex items-center border border-outline-variant rounded-lg bg-surface">
+                            <button type="button" class="qty-btn minus-btn" data-product-id="${item.productId}" data-step="-1">-</button>
+                            <span class="w-8 text-center text-[12px] font-semibold text-on-surface">${item.qty}</span>
+                            <button type="button" class="qty-btn plus-btn" data-product-id="${item.productId}" data-step="1">+</button>
+                        </div>
+                        <div class="w-20 text-right">
+                            <div class="text-[14px] font-bold text-on-surface">${formatCurrency(item.lineTotal)}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            bindQtyButtons();
+        }
+
+        function bindQtyButtons() {
+            document.querySelectorAll('.plus-btn, .minus-btn').forEach(button => {
+                button.onclick = function () {
+                    const productId = button.dataset.productId;
+                    const targetInput = document.querySelector(`input[name="qty_${productId}"]`);
+                    if (!targetInput) return;
+                    const current = parseInt(targetInput.value || '0');
+                    const step = parseInt(button.dataset.step || '0');
+                    const max = parseInt(targetInput.max || '999');
+                    const next = Math.max(0, Math.min(max, current + step));
+                    targetInput.value = next;
+                    updateCartSummary();
+                };
+            });
+        }
+
+        productInputs.forEach(input => {
+            input.addEventListener('input', function () {
+                const value = parseInt(input.value || '0');
+                const max = parseInt(input.max || '999');
+                input.value = Math.max(0, Math.min(max, value));
+                updateCartSummary();
+            });
+        });
+
+        discountInput.addEventListener('input', updateCartSummary);
+
+        paymentButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                paymentMethodInput.value = button.dataset.method;
+                paymentButtons.forEach(btn => {
+                    if (btn === button) {
+                        btn.classList.add('bg-primary-container', 'text-on-primary');
+                        btn.classList.remove('text-on-surface-variant');
+                        btn.innerHTML = '<span class="material-symbols-outlined text-[14px]">check</span> ' + btn.dataset.method.toUpperCase();
+                    } else {
+                        btn.classList.remove('bg-primary-container', 'text-on-primary');
+                        btn.classList.add('text-on-surface-variant');
+                        const label = btn.dataset.method.toUpperCase();
+                        btn.innerHTML = label === 'UPI'
+                            ? '<span class="material-symbols-outlined text-[14px]">qr_code_scanner</span> UPI'
+                            : '<span class="material-symbols-outlined text-[14px]">credit_card</span> Card';
+                    }
+                });
+            });
+        });
+
+        document.getElementById('billForm').addEventListener('submit', function (event) {
+            const hasSelectedItem = Array.from(productInputs).some(input => parseInt(input.value || '0') > 0);
+            if (!hasSelectedItem) {
+                event.preventDefault();
+                alert('Please select at least one product before generating the bill.');
+            }
+        });
+
+        function clearCart() {
+            productInputs.forEach(input => input.value = 0);
+            updateCartSummary();
+        }
+
+        bindQtyButtons();
+        updateCartSummary();
+    </script>
+</body>
+</html>

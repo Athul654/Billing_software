@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Staff - POS Billing System Admin Portal</title>
+<!-- Google Font: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-fixed-dim": "#adc6ff",
+            "surface-container-high": "#dce9ff",
+            "on-primary": "#ffffff",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-primary-fixed-variant": "#3f465c",
+            "primary-fixed-dim": "#bec6e0",
+            "error-container": "#ffdad6",
+            "secondary-container": "#2170e4",
+            "inverse-primary": "#bec6e0",
+            "outline-variant": "#c6c6cd",
+            "surface-dim": "#cbdbf5",
+            "primary-container": "#131b2e",
+            "secondary": "#0058be",
+            "outline": "#76777d",
+            "on-secondary": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "error": "#ba1a1a",
+            "tertiary-container": "#002113",
+            "on-tertiary-fixed-variant": "#005236",
+            "surface": "#f8f9ff",
+            "on-background": "#0b1c30",
+            "surface-bright": "#f8f9ff",
+            "surface-container": "#e5eeff",
+            "on-error-container": "#93000a",
+            "background": "#f8f9ff",
+            "on-error": "#ffffff",
+            "primary-fixed": "#dae2fd",
+            "on-tertiary-fixed": "#002113",
+            "surface-container-highest": "#d3e4fe",
+            "on-secondary-fixed": "#001a42",
+            "on-surface-variant": "#45464d",
+            "surface-container-low": "#eff4ff",
+            "on-surface": "#0b1c30",
+            "on-primary-container": "#7c839b",
+            "inverse-on-surface": "#eaf1ff",
+            "surface-variant": "#d3e4fe",
+            "secondary-fixed": "#d8e2ff",
+            "on-secondary-fixed-variant": "#004395",
+            "tertiary-fixed": "#6ffbbe",
+            "inverse-surface": "#213145",
+            "tertiary": "#000000",
+            "surface-tint": "#565e74",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#000000",
+            "on-primary-fixed": "#131b2e",
+            "on-tertiary-container": "#009668",
+            "on-secondary-container": "#fefcff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "margin-mobile": "1rem",
+            "space-xl": "1.5rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-lg": "1rem",
+            "margin": "1.5rem",
+            "gutter": "1rem",
+            "space-md": "0.75rem"
+          },
+          "fontFamily": {
+            "headline-xl": ["Inter"],
+            "title-md": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "code-md": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "display-lg": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"]
+          },
+          "fontSize": {
+            "headline-xl": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+            "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-lg": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "code-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "headline-xl-mobile": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #c6c6cd;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased flex h-screen overflow-hidden selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- ==================== LEFT SIDEBAR ==================== -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col justify-between bg-surface border-r border-outline-variant z-50 select-none">
+<!-- Top Brand & Action -->
+<div class="flex flex-col">
+<div class="px-space-md pt-space-md pb-space-sm border-b border-outline-variant flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary-container text-on-primary flex items-center justify-center font-bold text-title-md">
+<span class="material-symbols-outlined text-white" style="font-size: 20px;">point_of_sale</span>
+</div>
+<div class="flex flex-col overflow-hidden">
+<span class="font-title-md text-title-md font-bold text-on-surface truncate">POS Billing System Admin Portal</span>
+<span class="font-label-sm text-label-sm text-outline truncate">Enterprise Retail &amp; Textile Engine</span>
+</div>
+</div>
+<div class="p-space-sm">
+<button class="w-full bg-primary hover:bg-on-surface-variant text-on-primary font-label-md text-label-md py-space-sm px-space-md rounded flex items-center justify-center gap-space-xs transition-colors duration-150 shadow-sm active:scale-[0.99]">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+<span>+ Create New Bill</span>
+</button>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex flex-col px-space-xs mt-space-xs space-y-0.5 overflow-y-auto max-h-[calc(100vh-270px)] custom-scrollbar">
+<!-- Dashboard -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="/staff-dashboard/">
+<span class="material-symbols-outlined text-outline">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Products -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="/products/">
+<span class="material-symbols-outlined text-outline">inventory_2</span>
+<span>Products</span>
+</a>
+<!-- Categories -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline">category</span>
+<span>Categories</span>
+</a>
+<!-- Staff (ACTIVE) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary bg-surface-container-low border-l-2 border-secondary font-label-md text-label-md transition-colors duration-150" href="/staff/">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">badge</span>
+<span>Staff</span>
+</a>
+<!-- Suppliers -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline">conveyor_belt</span>
+<span>Suppliers</span>
+</a>
+<!-- Billing / Transactions -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline">point_of_sale</span>
+<span>Billing / Transactions</span>
+</a>
+<!-- Returns -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline">assignment_return</span>
+<span>Returns</span>
+</a>
+<!-- Inventory -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline">warehouse</span>
+<span>Inventory</span>
+</a>
+<!-- Ledger -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline">receipt_long</span>
+<span>Ledger</span>
+</a>
+<!-- Reports -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline">analytics</span>
+<span>Reports</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</div>
+<!-- Footer Profile & Session -->
+<div class="p-space-sm border-t border-outline-variant bg-surface-container-lowest">
+<div class="flex items-center justify-between px-space-sm py-space-xs rounded hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm overflow-hidden">
+<div class="w-8 h-8 rounded bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate leading-tight">Admin Profile</span>
+<span class="font-label-sm text-label-sm text-outline truncate">Super Admin</span>
+</div>
+</div>
+<button class="text-outline hover:text-error transition-colors p-1 rounded" title="Sign Out">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- ==================== MAIN CONTENT WRAPPER ==================== -->
+<div class="ml-64 flex-1 flex flex-col h-screen overflow-hidden bg-surface">
+<!-- Top Navigation Bar -->
+<header class="h-14 bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between px-space-lg sticky top-0 z-40 shadow-none">
+<!-- Left: Breadcrumb navigation with Back CTA -->
+<div class="flex items-center gap-space-md">
+<a class="flex items-center gap-1 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors border border-outline-variant px-space-sm py-1 rounded bg-surface hover:bg-surface-container-low" href="/staff/" title="Return to Staff Management">
+<span class="material-symbols-outlined" style="font-size: 16px;">arrow_back</span>
+<span>Back to Staff List</span>
+</a>
+<div class="h-4 w-px bg-outline-variant"></div>
+<nav class="flex items-center gap-1.5 font-label-md text-label-md text-outline">
+<a class="hover:text-on-surface cursor-pointer" href="/staff-dashboard/">Dashboard</a>
+<span class="material-symbols-outlined" style="font-size: 14px;">chevron_right</span>
+<a class="hover:text-on-surface cursor-pointer" href="/staff/">Staff</a>
+<span class="material-symbols-outlined" style="font-size: 14px;">chevron_right</span>
+<span class="text-on-surface font-semibold">{% if staff %}Edit Staff{% else %}Add Staff{% endif %}</span>
+</nav>
+</div>
+<!-- Right: Warehouse Selector, Search, Alerts, Profile -->
+<div class="flex items-center gap-space-md">
+<!-- Store Selector Pill -->
+<div class="flex items-center gap-space-xs bg-surface-container-low border border-outline-variant px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary" style="font-size: 16px;">storefront</span>
+<span class="font-medium">Main Store - Central Warehouse</span>
+<span class="material-symbols-outlined text-outline" style="font-size: 16px;">arrow_drop_down</span>
+</div>
+<!-- Quick Register Search Input -->
+<div class="relative w-52">
+<span class="material-symbols-outlined absolute left-2.5 top-2 text-outline" style="font-size: 16px;">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded pl-8 pr-2.5 py-1 font-body-md text-body-md text-on-surface placeholder-outline focus:outline-none focus:border-secondary transition-colors" placeholder="Search staff / registers..." type="text"/>
+</div>
+<!-- Notifications -->
+<button class="relative p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Alerts (4)">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full ring-2 ring-surface-container-lowest"></span>
+</button>
+<div class="h-5 w-px bg-outline-variant"></div>
+<!-- User Profile Avatar Pill -->
+<div class="flex items-center gap-space-xs cursor-pointer pl-1">
+<div class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-label-sm">
+            SU
+          </div>
+<span class="font-label-md text-label-md text-on-surface font-medium hidden lg:inline">Admin User</span>
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas Area -->
+<main class="flex-1 overflow-y-auto p-space-lg custom-scrollbar pb-24">
+<div class="max-w-5xl mx-auto space-y-space-md">
+<!-- Top Inline Toast Success Notification Preview (Dismissible) -->
+<div class="bg-surface-container-lowest border-l-4 border-l-on-tertiary-container border border-outline-variant p-space-md rounded flex items-center justify-between shadow-sm" id="toast-banner">
+<div class="flex items-center gap-space-md">
+<div class="w-7 h-7 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined" style="font-size: 18px;">check_circle</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Ready to deploy floor credentials</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Staff members can immediately access the Billing Portal upon terminal assignment.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container text-secondary font-medium">Terminal v3.4.1 Ready</span>
+<button class="text-outline hover:text-on-surface p-1" onclick="document.getElementById('toast-banner').style.display='none'">
+<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+</button>
+</div>
+</div>
+<!-- Page Title & Header Actions -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm pb-space-xs border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-space-sm">
+<h1 class="font-headline-xl text-headline-xl text-on-surface font-bold">{% if staff %}Edit Staff{% else %}Add Staff{% endif %}</h1>
+<span class="bg-secondary-fixed text-on-secondary-fixed font-label-sm font-label-sm font-semibold px-2 py-0.5 rounded tracking-wide border border-secondary-fixed-dim">
+                {% if staff %}EDIT EXISTING USER{% else %}NEW POS USER{% endif %}
+              </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+              Create a new staff account for the billing system and configure terminal access.
+            </p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface font-label-md text-label-md py-1.5 px-space-md rounded hover:bg-surface-container-low transition-colors" type="button">
+              Discard Changes
+            </button>
+<a class="bg-surface-container-lowest border border-outline-variant text-secondary font-label-md text-label-md py-1.5 px-space-md rounded hover:bg-surface-container-low flex items-center gap-1 transition-colors" href="/staff/">
+<span class="material-symbols-outlined" style="font-size: 16px;">list_alt</span>
+<span>View Staff List</span>
+</a>
+</div>
+</div>
+<!-- FORM CONTAINER: Structured Bento / Cards Grid -->
+<form class="space-y-space-md" id="add-staff-form" method="POST" action="{% if staff %}/staff/edit/{{ staff.id }}/{% else %}/staff/add/{% endif %}">
+    {% csrf_token %}
+<!-- CARD 1: Personal Information -->
+<div class="bg-surface-container-lowest rounded border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-space-md py-space-sm border-b border-outline-variant bg-surface flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">badge</span>
+<h2 class="font-title-md text-title-md font-semibold text-on-surface">Personal Information</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Fields marked with <span class="text-error font-bold">*</span> are required</span>
+</div>
+<div class="p-space-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Full Name -->
+<div class="md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface font-medium mb-1">
+                    Full Name <span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded px-space-sm py-2 font-body-md text-body-md text-on-surface placeholder-outline focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" name="fullname" placeholder="e.g. Ramesh Varma" required="" type="text" value="{% if staff %}{{ staff.get_full_name }}{% endif %}"/>
+<div class="absolute right-3 top-2.5 flex items-center text-on-tertiary-container gap-1">
+<span class="material-symbols-outlined text-on-tertiary-container" style="font-size: 16px;">check_circle</span>
+<span class="font-label-sm text-label-sm font-semibold">Valid name format</span>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-1">Official name as displayed on customer POS receipts and cashier shift slips.</p>
+</div>
+<!-- Email Address -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-medium mb-1">
+                    Email Address
+                  </label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded px-space-sm py-2 font-body-md text-body-md text-on-surface placeholder-outline focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" name="email" placeholder="e.g. ramesh.billing@textilestore.com" type="email" value="{% if staff %}{{ staff.email }}{% endif %}"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline" style="font-size: 16px;">mail</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-1">Used for shift summaries, daily settlement reports, and system alerts.</p>
+</div>
+<!-- Phone Number -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-medium mb-1">
+                    Phone Number
+                  </label>
+<div class="flex">
+<span class="inline-flex items-center px-3 border border-r-0 border-outline-variant bg-surface font-code-md text-code-md text-on-surface rounded-l">
+                      +91
+                    </span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-r px-space-sm py-2 font-body-md text-body-md text-on-surface placeholder-outline focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" name="phone" placeholder="98765 43210" type="tel" value="{% if staff %}{{ staff.phone }}{% endif %}"/>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-1">Primary contact for store shift manager and OTP authorization verification.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- CARD 2: Account Information -->
+<div class="bg-surface-container-lowest rounded border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-space-md py-space-sm border-b border-outline-variant bg-surface flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">vpn_key</span>
+<h2 class="font-title-md text-title-md font-semibold text-on-surface">Account Information</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline font-medium">Terminal Login Authentication</span>
+</div>
+<div class="p-space-md space-y-space-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Username -->
+<div class="md:col-span-2">
+<div class="flex items-center justify-between mb-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">
+                      Username <span class="text-error">*</span>
+</label>
+<span class="font-label-sm text-label-sm text-on-tertiary-container bg-tertiary-fixed px-2 py-0.5 rounded font-semibold inline-flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 13px;">done</span> Available
+                    </span>
+</div>
+<div class="flex">
+<span class="inline-flex items-center px-3 border border-r-0 border-outline-variant bg-surface font-code-md text-code-md text-outline rounded-l">
+                      @
+                    </span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-r px-space-sm py-2 font-code-md text-code-md text-on-surface focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" name="username" placeholder="e.g. ramesh02" required="" type="text" value="{% if staff %}{{ staff.username }}{% endif %}" {% if staff %}readonly{% endif %}/>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-1">Must be unique across all POS registers in this enterprise cluster.</p>
+</div>
+<!-- Password -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">
+                      Password <span class="text-error">*</span>
+</label>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Strong Password</span>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded px-space-sm py-2 font-code-md text-code-md text-on-surface focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all pr-10" name="password" {% if not staff %}required{% endif %} type="password" placeholder="{% if staff %}Leave blank to keep current password{% else %}Enter password{% endif %}"/>
+<button class="absolute right-3 top-2.5 text-outline hover:text-on-surface transition-colors" title="Toggle visibility" type="button">
+<span class="material-symbols-outlined" style="font-size: 18px;">visibility</span>
+</button>
+</div>
+<!-- Password Strength Meter -->
+<div class="w-full bg-surface-container h-1.5 rounded mt-2 overflow-hidden flex">
+<div class="bg-secondary w-1/4 h-full"></div>
+<div class="bg-secondary w-1/4 h-full ml-0.5"></div>
+<div class="bg-secondary w-1/4 h-full ml-0.5"></div>
+<div class="bg-on-tertiary-container w-1/4 h-full ml-0.5"></div>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-1">Use at least 8 characters with a mix of letters and numbers.</p>
+</div>
+<!-- Confirm Password -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="font-label-md text-label-md text-on-surface font-medium">
+                      Confirm Password <span class="text-error">*</span>
+</label>
+<span class="font-label-sm text-label-sm text-on-tertiary-container font-semibold inline-flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">check</span> Passwords match
+                    </span>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded px-space-sm py-2 font-code-md text-code-md text-on-surface focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all pr-10" name="confirm_password" {% if not staff %}required{% endif %} type="password" placeholder="{% if staff %}Leave blank to keep current password{% else %}Confirm password{% endif %}"/>
+<button class="absolute right-3 top-2.5 text-outline hover:text-on-surface transition-colors" title="Toggle visibility" type="button">
+<span class="material-symbols-outlined" style="font-size: 18px;">visibility</span>
+</button>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-1">Re-enter identical alphanumeric string to prevent authentication lockouts.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- CARD 3: Role & Access -->
+<div class="bg-surface-container-lowest rounded border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-space-md py-space-sm border-b border-outline-variant bg-surface flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">admin_panel_settings</span>
+<h2 class="font-title-md text-title-md font-semibold text-on-surface">Role &amp; Access</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Privileges Scope: Cashier Operations</span>
+</div>
+<div class="p-space-md space-y-space-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Role Selection (Locked Role Pill) -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-medium mb-1">
+                    System Role <span class="text-error">*</span>
+</label>
+<div class="flex items-center justify-between bg-surface border border-outline-variant rounded px-space-sm py-2">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">point_of_sale</span>
+<div>
+<span class="font-label-md text-label-md font-bold text-on-surface">Staff (Billing &amp; Cashier Register)</span>
+<p class="font-label-sm text-label-sm text-outline">Fixed Role: Standard checkout permissions</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;" title="Role locked for this form">lock</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-1">
+                    Staff accounts can access the Billing &amp; POS Portal but cannot manage Admin settings or audit configuration.
+                  </p>
+</div>
+<!-- Terminal Assignment -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-medium mb-1">
+                    Assigned Register Terminal <span class="text-error">*</span>
+</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded px-space-sm py-2 font-body-md text-body-md text-on-surface focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all appearance-none cursor-pointer">
+<option value="term_01">Terminal 01 - Cash Counter / Main Floor</option>
+<option value="term_02">Terminal 02 - Textile Rolls &amp; Cutting Desk</option>
+<option value="term_03">Terminal 03 - Wholesale &amp; Bulk Dispatch</option>
+<option value="term_all">All Terminals (Roaming Cashier Access)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline pointer-events-none" style="font-size: 18px;">expand_more</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-1">Designates primary physical cash drawer and hardware receipt printer pairing.</p>
+</div>
+</div>
+<!-- Notice Badge regarding Admin Configuration -->
+<div class="p-space-sm bg-surface-container-low border border-outline-variant rounded flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary flex-shrink-0" style="font-size: 20px;">info</span>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface font-semibold">Security Governance Policy</p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Admins must be configured separately in Master Security Settings. This form is strictly for floor billing staff to maintain audit isolation between ledger adjustments and daily register operations.
+                  </p>
+</div>
+</div>
+</div>
+</div>
+<!-- CARD 4: Account Status -->
+<div class="bg-surface-container-lowest rounded border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-space-md py-space-sm border-b border-outline-variant bg-surface flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">power_settings_new</span>
+<h2 class="font-title-md text-title-md font-semibold text-on-surface">Account Status</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">State Management</span>
+</div>
+<div class="p-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md bg-surface p-space-md border border-outline-variant rounded">
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed mt-0.5">
+<span class="material-symbols-outlined" style="font-size: 20px;">check</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-bold text-on-surface">Account Authorization State</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-label-sm font-label-sm font-semibold px-2 py-0.5 rounded">
+                        Active for POS Billing
+                      </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-2xl">
+                      Inactive staff members cannot log in to the Billing Portal. Deactivating a staff account preserves all their historical sales transactions, invoice audit signatures, and cash drawer tallies.
+                    </p>
+</div>
+</div>
+<!-- Toggle Switch -->
+<div class="flex items-center gap-space-sm self-end sm:self-center">
+<label class="relative inline-flex items-center cursor-pointer">
+<input {% if staff and staff.is_active %}checked{% endif %} class="sr-only peer" name="is_active" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Active</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+</main>
+<!-- ==================== DOCKED BOTTOM ACTION BAR ==================== -->
+<footer class="fixed bottom-0 right-0 left-64 bg-surface-container-lowest border-t border-outline-variant px-space-lg py-2.5 flex items-center justify-between z-40">
+<!-- Left side: Offline terminal sync badge -->
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
+<span class="material-symbols-outlined text-outline" style="font-size: 16px;">cloud_sync</span>
+<span class="text-on-surface font-medium">Auto-sync enabled</span>
+<span class="text-outline">for offline registers upon creation</span>
+</div>
+<!-- Right side: Actions -->
+<div class="flex items-center gap-space-sm">
+<a class="px-space-md py-1.5 border border-outline-variant rounded font-label-md text-label-md text-on-surface hover:bg-surface transition-colors" href="/staff/">
+          Cancel
+        </a>
+<button class="px-space-md py-1.5 border border-outline-variant rounded font-label-md text-label-md text-on-surface hover:bg-surface flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined" style="font-size: 16px;">add</span>
+<span>Save &amp; Add Another</span>
+</button>
+<button class="px-space-lg py-1.5 bg-primary text-on-primary rounded font-label-md text-label-md hover:bg-on-surface-variant flex items-center gap-1.5 shadow-sm active:scale-[0.98] transition-all" form="add-staff-form" type="submit">
+<span class="material-symbols-outlined text-on-primary" style="font-size: 16px;">how_to_reg</span>
+<span>+ Create Staff Account</span>
+</button>
+</div>
+</footer>
+</div>
+</body></html>
