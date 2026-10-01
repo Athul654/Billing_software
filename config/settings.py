@@ -25,14 +25,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ON_VERCEL = os.environ.get("VERCEL") == "1"
 
 # SECURITY WARNING: keep the secret key used in production secret!
+DEBUG = os.environ.get("DEBUG", "False" if ON_VERCEL else "True").lower() in {
+    "true",
+    "1",
+    "yes",
+}
+
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 if not SECRET_KEY:
-    if ON_VERCEL or os.environ.get("DEBUG") == "False":
+    if ON_VERCEL or not DEBUG:
         raise ImproperlyConfigured("Set the DJANGO_SECRET_KEY environment variable.")
-    SECRET_KEY = "django-insecure-local-development-only-do-not-use-in-production"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False" if ON_VERCEL else "True") == "True"
+    SECRET_KEY = "django-insecure-d4+_hy-eabq@&ok9-dv$sjub!gm(!(03ndf5&*(%86xa%w6^d)"
 
 ALLOWED_HOSTS = [
     host.strip()
